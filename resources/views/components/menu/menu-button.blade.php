@@ -1,4 +1,4 @@
-<a href="#" class="group relative overflow-hidden w-70 h-54 transition duration-300 hover:scale-110">
+<a href="{{$address}}" class="group relative overflow-hidden w-70 h-54 transition duration-300 hover:scale-110">
             <div class="rounded-lg overflow-hidden border border-gray-300 w-full h-full relative">
                 <img src="{{ $imgsrc }}" alt="Button 1" class="{{$imgClass}}">
                 <div class="absolute inset-0 bg-gray-500 opacity-0 transition duration-300 group-hover:opacity-50"></div>

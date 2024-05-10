@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'current_club',
         'icon_choosed'
     ];
 

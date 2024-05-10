@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RosterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,5 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profilePhoto', [ProfileController::class, 'updatePhoto'])->name('profile.photo-update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/roster', [RosterController::class, 'index'])->name('roster.index')->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

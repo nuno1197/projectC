@@ -23,6 +23,7 @@
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
+
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
@@ -45,6 +46,12 @@
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="current_club" :value="__('Current Club')" />
+            <x-text-input id="current_club" name="current_club" type="text" class="mt-1 block w-full" :value="old('current_club', $user->current_club)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('current_club')" />
         </div>
 
         <div class="flex items-center gap-4">
