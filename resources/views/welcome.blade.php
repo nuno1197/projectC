@@ -35,7 +35,7 @@
             {{--            </div>--}}
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                 <a href="/register" class="rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registar <span aria-hidden="true">&rarr;</span></a>
-                <a href="/login" class="rounded-md ml-5 bg-orange-400 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in <span aria-hidden="true">&rarr;</span></a>
+                <a href="/login" class="rounded-md ml-5 bg-orange_fruit px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in <span aria-hidden="true">&rarr;</span></a>
             </div>
         </nav>
         <!-- Mobile menu, show/hide based on menu open state. -->
@@ -58,10 +58,10 @@
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/10">
                         <div class="space-y-2 py-6">
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-sky-900 hover:bg-sky-50">Product</a>
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-sky-900 hover:bg-sky-50">Features</a>
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-sky-900 hover:bg-sky-50">Marketplace</a>
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-sky-900 hover:bg-sky-50">Company</a>
+                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Product</a>
+                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Features</a>
+                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Marketplace</a>
+                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Company</a>
                         </div>
                         <div class="py-6">
                             <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
@@ -80,14 +80,14 @@
             <div class="hidden sm:mb-8 sm:flex sm:justify-center">
             </div>
             <div class="text-center">
-                <h1 class="text-4xl font-bold tracking-tight text-sky-800 sm:text-6xl">blueprint</h1>
+                <h1 class="text-4xl font-bold tracking-tight text-pacific_cyan sm:text-6xl">blueprint</h1>
                 <div class="text-center mt-4">
                     <span class="bg-sky-100 text-sky-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-sky-900 dark:text-orange-600 ">Noun.</span>
                 </div>
                 <h3 class="text font-bold italic tracking-tight text-sky-600 sm:text-6xl">/ˈbluːprɪnt/</h3>
-                <p class="mt-6 text-lg font-bold leading-8 text-sky-400">    a design plan or other technical drawing.</p>
+                <p class="mt-6 text-lg font-bold leading-8 text-pacific_cyan">    a design plan or other technical drawing.</p>
                 <div class="mt-10 flex items-center justify-center gap-x-6">
-                    <a href="#" class="rounded-md bg-sky-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Começar a Planear</a>
+                    <a href="#" class="rounded-md bg-pacific_cyan px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Começar a Planear</a>
                 </div>
             </div>
         </div>

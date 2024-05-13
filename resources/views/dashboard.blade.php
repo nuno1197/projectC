@@ -4,23 +4,13 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <!--Aqui-->
-                    <div class="flex justify-center">
-                        <div class="grid grid-cols-4 gap-8">
-                            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/badge_team.png')}}" imgClass="w-full h-full object-contain" spanClass="text-white text-4xl font-semibold">Create Team</x-menu.menu-button>
-                            <x-menu.menu-button address="/roster" imgsrc="{{Vite::asset('/resources/images/buttons/roster_button.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-white text-4xl font-semibold">Create Roster</x-menu.menu-button>
-                            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/ball_player.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-white text-4xl font-semibold">Add Players</x-menu.menu-button>
-                            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/blueprint_menu.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-white text-4xl font-semibold">Practices Menu</x-menu.menu-button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!--Aqui-->
+    <div class="flex justify-center">
+        <div class="grid grid-cols-4 gap-8">
+            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/badge_team.png')}}" imgClass="w-full h-full object-contain" spanClass="text-flax text-4xl font-extrabold">Create Team</x-menu.menu-button>
+            <x-menu.menu-button address="/roster" imgsrc="{{Vite::asset('/resources/images/buttons/roster_button.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-flax text-4xl font-extrabold">Create Roster</x-menu.menu-button>
+            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/ball_player.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-flax text-4xl font-extrabold">Add Players</x-menu.menu-button>
+            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/blueprint_menu.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-flax text-4xl font-extrabold">Practices Menu</x-menu.menu-button>
         </div>
     </div>
-
 </x-app-layout>
