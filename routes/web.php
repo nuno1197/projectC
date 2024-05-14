@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PlayersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RosterController;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,12 @@ Route::post('/roster', [RosterController::class, 'store'])->name('roster.store')
 Route::get('/roster/{roster}', [RosterController::class, 'edit'])->name('roster.edit')->middleware('auth');
 Route::patch('/roster/{roster}', [RosterController::class, 'update'])->name('roster.patch')->middleware('auth');
 Route::delete('/roster/{roster}', [RosterController::class, 'destroy'])->name('roster.delete')->middleware('auth');
+
+Route::get('/players/{roster}', [PlayersController::class, 'index'])->name('players.index')->middleware(['auth', 'verified']);
+Route::get('/players/{roster}/create', [PlayersController::class, 'create'])->name('players.create')->middleware(['auth', 'verified']);
+Route::post('/players', [PlayersController::class, 'store'])->name('players.store')->middleware(['auth', 'verified']);
+
+
+
+
 require __DIR__.'/auth.php';

@@ -27,12 +27,21 @@
                 </header>
             @endif
 
+            <!-- Page Heading -->
+            @if (isset($secondHeader))
+                <header class="bg-white dark:bg-gray-800 shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+                        {{ $secondHeader }}
+                    </div>
+                </header>
+            @endif
+
             <!-- Page Content -->
             <main>
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                            <div class="p-6 text-gray-900 dark:text-gray-100 mb-2 border-red-500">
+                            <div class="p-6 text-gray-900 dark:text-gray-100 mb-2">
                                 {{ $slot }}
                             </div>
                         </div>
