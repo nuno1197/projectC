@@ -12,9 +12,10 @@ export default {
     theme: {
         extend: {
             backgroundImage:{
-                'ball_court': "url('/resources/images/bg_court2.jpg')",
-                'login_court': "url('/resources/images/login_court.jpg')",
-                'curves' : "url('/resources/images/image.svg')"
+                'ball_court': "url('/resources/images/background_images/bg_court2.jpg')",
+                'login_court': "url('/resources/images/background_images/login_court.jpg')",
+                'curves' : "url('/resources/images/image.svg')",
+                'danger_stripes': "url('/resources/images/background_images/danger_stripe.svg')"
             },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],

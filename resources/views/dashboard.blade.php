@@ -7,8 +7,7 @@
     <!--Aqui-->
     <div class="flex justify-center">
         <div class="grid grid-cols-4 gap-8">
-            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/badge_team.png')}}" imgClass="w-full h-full object-contain" spanClass="text-flax text-4xl font-extrabold">Create Team</x-menu.menu-button>
-            <x-menu.menu-button address="/roster" imgsrc="{{Vite::asset('/resources/images/buttons/roster_button.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-flax text-4xl font-extrabold">Create Roster</x-menu.menu-button>
+            <x-menu.menu-button address="/roster" imgsrc="{{Vite::asset('/resources/images/buttons/roster_button.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-black text-4xl font-extrabold">Roster Menu</x-menu.menu-button>
             <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/ball_player.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-flax text-4xl font-extrabold">Add Players</x-menu.menu-button>
             <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/blueprint_menu.jpg')}}" imgClass="w-full h-full object-cover" spanClass="text-flax text-4xl font-extrabold">Practices Menu</x-menu.menu-button>
         </div>

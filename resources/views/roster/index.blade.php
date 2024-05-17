@@ -63,7 +63,7 @@
                                 <form method="POST" action="{{ route('roster.delete', ['roster' => $roster->id])}}">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Are you sure?')"
+                                    <button onclick="return confirm('Are you sure? All players in this roster will be deleted, so be carefull')"
                                             class="text-white bg-red-600 hover:bg-red-800 font-semibold py-2 px-4 rounded-full"
                                             type="submit"><i class="fa-regular fa-trash-can mr-2"></i>Delete
                                     </button>

@@ -30,6 +30,9 @@ Route::delete('/roster/{roster}', [RosterController::class, 'destroy'])->name('r
 Route::get('/players/{roster}', [PlayersController::class, 'index'])->name('players.index')->middleware(['auth', 'verified']);
 Route::get('/players/{roster}/create', [PlayersController::class, 'create'])->name('players.create')->middleware(['auth', 'verified']);
 Route::post('/players', [PlayersController::class, 'store'])->name('players.store')->middleware(['auth', 'verified']);
+Route::get('/players/edit/{players}', [PlayersController::class, 'edit'])->name('players.edit')->middleware('auth');
+Route::patch('/players/{players}', [PlayersController::class, 'update'])->name('players.patch')->middleware('auth');
+Route::delete('/players/{players}', [PlayersController::class, 'destroy'])->name('players.delete')->middleware('auth');
 
 
 
