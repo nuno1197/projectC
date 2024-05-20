@@ -1,5 +1,6 @@
 <div class="bg-gray-300 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:scale-105 w-full mb-4">
     <div class="p-6 flex justify-between items-center">
+
         <!-- Image -->
         <img src="{{Vite::asset('/resources/images/badge.png')}}" alt="Image" class="mr-4 h-20 w-20">
         <div>
@@ -18,3 +19,4 @@
         </div>
     </div>
 </div>
+

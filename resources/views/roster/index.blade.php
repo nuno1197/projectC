@@ -6,7 +6,7 @@
     </x-slot>
 
     <x-slot name="secondHeader">
-        <h2 class="font-semibold text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
+        <h2 class="font-semibold italic text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
             Team is one.
         </h2>
 
@@ -52,10 +52,16 @@
                                                          anotherSmallTitle="{{$roster->season}}">
                             {{$roster->age_squad}}
 
+{{--                            <x-slot name="actions">--}}
+{{--                                <a href="{{ route('players.index', ['roster' => $roster->id])}}"--}}
+{{--                                   class=" mt-8 text-white bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded-full"><i--}}
+{{--                                        class="fa-solid fa-users "></i> Players</a>--}}
+{{--                            </x-slot>--}}
+
                             <x-slot name="actions">
-                                <a href="{{ route('players.index', ['roster' => $roster->id])}}"
+                                <a href="{{ route('roster.indexRoster', ['roster' => $roster->id])}}"
                                    class=" mt-8 text-white bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded-full"><i
-                                        class="fa-solid fa-users "></i> Players</a>
+                                        class="fa-solid fa-bars-progress mr-2"></i>Manage</a>
                             </x-slot>
 
                             <x-slot name="actions2" class="mb-4">

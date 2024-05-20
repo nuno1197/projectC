@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PlayersController;
+use App\Http\Controllers\PracticesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RosterController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/roster', [RosterController::class, 'index'])->name('roster.index')->middleware(['auth', 'verified']);
+Route::get('/roster/roster-menu/{roster}', [RosterController::class, 'indexRoster'])->name('roster.indexRoster')->middleware(['auth', 'verified']);
 Route::get('/roster/create', [RosterController::class, 'create'])->name('roster.create')->middleware(['auth', 'verified']);
 Route::post('/roster', [RosterController::class, 'store'])->name('roster.store')->middleware('auth');
 Route::get('/roster/{roster}', [RosterController::class, 'edit'])->name('roster.edit')->middleware('auth');
@@ -34,6 +36,9 @@ Route::get('/players/edit/{players}', [PlayersController::class, 'edit'])->name(
 Route::patch('/players/{players}', [PlayersController::class, 'update'])->name('players.patch')->middleware('auth');
 Route::delete('/players/{players}', [PlayersController::class, 'destroy'])->name('players.delete')->middleware('auth');
 
+
+
+Route::get('/pratices/{roster}', [PracticesController::class, 'index'])->name('pratices.index')->middleware(['auth', 'verified']);
 
 
 
