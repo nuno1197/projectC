@@ -6,7 +6,7 @@
     </x-slot>
     <!--Aqui-->
     <div class="mb-4">
-        <a href="#" class="ml-auto font-bold text-white bg-pacific_cyan rounded px-4 py-2 hover:bg-rich_black"> Add Practice </a>
+        <x-button href="{{ route('practices.create',['roster'=>$roster->id]) }}" class="ml-auto font-bold text-white bg-pacific_cyan rounded px-4 py-2 hover:bg-rich_black"> Add Practice </x-button>
     </div>
     <div id="calendar"></div>
 

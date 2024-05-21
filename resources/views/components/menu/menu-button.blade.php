@@ -6,7 +6,7 @@
                 <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100">
                     <span class="{{$spanClass}}">{{$slot}}</span>
                 </div>
-                <div class="absolute bottom-0 left-0 w-full h-1 bg-sky-600 transition duration-300 transform scale-x-0 group-hover:scale-x-100 origin-left top-full -translate-y-6"></div> <!-- Bottom Line -->
-            </div>
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-sky-600 transition duration-300 transform scale-x-0 group-hover:scale-x-100 origin-left top-full -translate-y-6"></div> <!-- Bottom Line -->
+    </div>
 </a>
 

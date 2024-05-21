@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Roster Menu') }}
+            {{ __('Roster Menu') }} - Season <span class="text-flax font-bold">{{$seasons->season_string}} </span>
         </h2>
     </x-slot>
 
@@ -22,20 +22,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
-
-                    <form method="GET" id="season_form">
-                        <span class="ml-10">Select Season:</span>
-                        <x-dropdown-page x-on:change="submitForm()">
-                            <option value="{{ old('season') ?? $season->seasons ?? 'default' }}}">{{$auxSeason}}</option>
-                            @foreach($seasons as $season)
-                                @if ($season->seasons != $auxSeason)
-                                    <option value="{{$season->seasons}}">{{$season->seasons}}</option>
-                                @endif
-                            @endforeach
-                        </x-dropdown-page>
-                    </form>
-
-                    <x-button href="{{ route('roster.create') }}">Add Roster</x-button>
+                    <x-button class="h-10" href="{{ route('roster.create',['season' => $seasons]) }}">Add Roster</x-button>
+                    <x-button class="h-10" href="{{ route('landing') }}">Go Back</x-button>
 
 
                 </div>
@@ -77,7 +65,7 @@
 
                             </x-slot>
                             <x-slot name="actions3">
-                                <a href="{{ route('roster.edit', ['roster' => $roster->id])}}"
+                                <a href="{{ route('roster.edit', ['roster' => $roster->id , 'season' => $seasons->id])}}"
                                    class=" mt-8 text-white bg-pacific_cyan hover:bg-orange_fruit font-semibold py-2 px-4 rounded-full"><i
                                         class="fa-solid fa-pen-to-square mr-2"></i>Edit</a>
                             </x-slot>
@@ -90,5 +78,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function getRosters(selectedSeason) {
+            // Envie uma solicitação AJAX para o servidor
+            axios.get('/rosters/' + selectedSeason)
+                .then(function (response) {
+                    // Atualize a lista de rosters na página
+                    document.getElementById('rosters-container').innerHTML = response.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    </script>
 
 </x-app-layout>

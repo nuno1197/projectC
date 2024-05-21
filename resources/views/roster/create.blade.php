@@ -24,20 +24,8 @@
 
                     <x-form_components.form-field class="border bg-gray-500 rounded-2xl border-orange_fruit p-4">
                         <x-form_components.form-label for="season">Season of The Team</x-form_components.form-label>
-                        <span class="text-pacific_cyan text-xs ml-8"> What season are you in? </span>
-
-                        <div class="mt-2">
-
-                            <x-form_components.form-dropdown name="season" default-option="Select Season">
-                                <li>
-                                    @foreach($seasons as $season)
-                                        <a href="#" x-on:click.prevent="selectedOption = '{{$season->seasons}}'; open = false;" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4">{{$season->seasons}}</a>
-                                    @endforeach
-                                </li>
-                            </x-form_components.form-dropdown>
-                            <x-form_components.form-error name="season" />
-
-                        </div>
+                        <span class="text-pacific_cyan text-xs ml-8"> This is your current season. </span>
+                        <x-form_components.form-input name="season" id="season" value="{{$seasons->season_string}}" readonly />
                     </x-form_components.form-field>
 
                     <x-form_components.form-field class="border bg-gray-500 rounded-2xl border-orange_fruit p-4">

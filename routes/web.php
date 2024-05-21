@@ -4,15 +4,22 @@ use App\Http\Controllers\PlayersController;
 use App\Http\Controllers\PracticesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RosterController;
+use App\Http\Controllers\SeasonsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+
+    if(Auth::check()){
+        return view('roster.index');
+    }
+
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,13 +28,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/roster', [RosterController::class, 'index'])->name('roster.index')->middleware(['auth', 'verified']);
+Route::get('/landing', [SeasonsController::class, 'index'])->name('landing')->middleware(['auth', 'verified']);
+
+Route::get('/roster/{season}', [RosterController::class, 'index'])->name('roster.index')->middleware(['auth', 'verified']);
 Route::get('/roster/roster-menu/{roster}', [RosterController::class, 'indexRoster'])->name('roster.indexRoster')->middleware(['auth', 'verified']);
-Route::get('/roster/create', [RosterController::class, 'create'])->name('roster.create')->middleware(['auth', 'verified']);
+Route::get('/roster/{season}/create', [RosterController::class, 'create'])->name('roster.create')->middleware(['auth', 'verified']);
 Route::post('/roster', [RosterController::class, 'store'])->name('roster.store')->middleware('auth');
-Route::get('/roster/{roster}', [RosterController::class, 'edit'])->name('roster.edit')->middleware('auth');
+Route::get('/roster/{season}/edit/{roster}', [RosterController::class, 'edit'])->name('roster.edit')->middleware('auth');
 Route::patch('/roster/{roster}', [RosterController::class, 'update'])->name('roster.patch')->middleware('auth');
 Route::delete('/roster/{roster}', [RosterController::class, 'destroy'])->name('roster.delete')->middleware('auth');
+
 
 Route::get('/players/{roster}', [PlayersController::class, 'index'])->name('players.index')->middleware(['auth', 'verified']);
 Route::get('/players/{roster}/create', [PlayersController::class, 'create'])->name('players.create')->middleware(['auth', 'verified']);
@@ -38,7 +48,8 @@ Route::delete('/players/{players}', [PlayersController::class, 'destroy'])->name
 
 
 
-Route::get('/pratices/{roster}', [PracticesController::class, 'index'])->name('pratices.index')->middleware(['auth', 'verified']);
+Route::get('/practices/{roster}', [PracticesController::class, 'index'])->name('practices.index')->middleware(['auth', 'verified']);
+Route::get('/practices/{roster}/create', [PracticesController::class, 'create'])->name('practices.create')->middleware(['auth', 'verified']);
 
 
 

@@ -34,7 +34,7 @@
             {{--                <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>--}}
             {{--            </div>--}}
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <a href="/register" class="rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registar <span aria-hidden="true">&rarr;</span></a>
+                <a href="/register" class="rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register <span aria-hidden="true">&rarr;</span></a>
                 <a href="/login" class="rounded-md ml-5 bg-orange_fruit px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Log in <span aria-hidden="true">&rarr;</span></a>
             </div>
         </nav>
@@ -54,19 +54,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-                </div>
-                <div class="mt-6 flow-root">
-                    <div class="-my-6 divide-y divide-gray-500/10">
-                        <div class="space-y-2 py-6">
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Product</a>
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Features</a>
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Marketplace</a>
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-pacific_cyan hover:bg-sky-50">Company</a>
-                        </div>
-                        <div class="py-6">
-                            <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
