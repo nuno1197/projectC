@@ -78,19 +78,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function getRosters(selectedSeason) {
-            // Envie uma solicitação AJAX para o servidor
-            axios.get('/rosters/' + selectedSeason)
-                .then(function (response) {
-                    // Atualize a lista de rosters na página
-                    document.getElementById('rosters-container').innerHTML = response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }
-    </script>
-
 </x-app-layout>

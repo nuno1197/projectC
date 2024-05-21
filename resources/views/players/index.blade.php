@@ -12,7 +12,7 @@
             The Artists <i class="fa-solid fa-wand-magic-sparkles">.</i>
         </h2>
         <x-button class="ml-auto bg-orange_fruit"  href="{{ route('players.create', ['roster' => $rosters->id]) }}">Add Players</x-button>
-        <x-button class="ml-auto"  href="{{ route('roster.index') }}">Go Back to Rosters</x-button>
+        <x-button class="ml-auto"  href="{{ url()->previous()}}">Go Back</x-button>
     </x-slot>
 
 
@@ -34,7 +34,7 @@
                                 <a href="{{ route('players.edit', ['players' => $player->id]) }}">
                                     <div class="relative">
                                         <img class="w-full h-auto" src="{{asset($player->photo_path)}}" alt="Player Headshot">
-                                        <div class="absolute top-0 right-0 bg-rich_black bg-opacity-50 text-orange_fruit text-xs px-2 py-1 rounded-l-full">
+                                        <div class="absolute top-0 right-0 bg-flax bg-opacity-50 text-rich_black text-xs px-2 py-1 rounded-l-full">
                                             {{$player->jersey_number}}
                                         </div>
                                     </div>

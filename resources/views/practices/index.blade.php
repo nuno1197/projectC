@@ -8,6 +8,11 @@
     <div class="mb-4">
         <x-button href="{{ route('practices.create',['roster'=>$roster->id]) }}" class="ml-auto font-bold text-white bg-pacific_cyan rounded px-4 py-2 hover:bg-rich_black"> Add Practice </x-button>
     </div>
+
+    @if (session('success'))
+        <x-success-message>{{ session('success') }}</x-success-message>
+    @endif
+
     <div id="calendar"></div>
 
     @push('scripts')
@@ -16,7 +21,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridWeek',
+                    initialView: 'dayGridMonth',
                     slotMinTime: '09:00:00',
                     slotMaxTime: '24:00:00',
                     events: @json($events),
@@ -24,8 +29,18 @@
                     headerToolbar: {
                         left: 'prev,next',
                         center: 'title',
-                        right: 'timeGridWeek,timeGridDay' // user can switch between the two
-                    }
+                        right: 'dayGridWeek,timeGridDay,dayGridMonth' // user can switch between the two
+                    },
+                    slotLabelFormat: {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false // Define a visualização de 24 horas para os slots
+                    },
+                    eventTimeFormat: { // Formato de 24 horas para eventos
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    },
                 });
                 calendar.render();
             });

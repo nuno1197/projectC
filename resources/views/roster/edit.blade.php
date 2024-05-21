@@ -29,14 +29,15 @@
 
                     <x-form_components.form-field class="border bg-gray-500 rounded-2xl border-orange_fruit p-4">
                         <x-form_components.form-label for="season">Season of The Team</x-form_components.form-label>
-                        <span class="text-pacific_cyan text-xs ml-8"> What season are you in? </span>
+                        <span class="text-pacific_cyan text-xs ml-8"> Change Season of the Roster. </span>
 
                         <div class="mt-2">
 
-                            <x-form_components.form-dropdown name="season" default-option="{{$roster->season}}" >
+                            <x-form_components.form-dropdown name="season" default-option="{{getSeasonString($roster->seasons_id)}}" >
                                 <li>
+                                    <a></a>
                                     @foreach($seasons as $season)
-                                        <a href="#" x-on:click.prevent="selectedOption = '{{$season->seasons}}'; open = false;" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4" @click.stop>{{$season->seasons}}</a>
+                                        <a href="#" x-on:click.prevent="selectedOption = '{{$season->season_string}}'; open = false;" class="block hover:bg-gray-200 whitespace-no-wrap py-2 px-4" @click.stop>{{$season->season_string}}</a>
                                     @endforeach
                                 </li>
                             </x-form_components.form-dropdown>

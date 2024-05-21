@@ -50,6 +50,7 @@ Route::delete('/players/{players}', [PlayersController::class, 'destroy'])->name
 
 Route::get('/practices/{roster}', [PracticesController::class, 'index'])->name('practices.index')->middleware(['auth', 'verified']);
 Route::get('/practices/{roster}/create', [PracticesController::class, 'create'])->name('practices.create')->middleware(['auth', 'verified']);
+Route::post('/practices', [PracticesController::class, 'store'])->name('practice.store')->middleware(['auth', 'verified']);
 
 
 
