@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Players>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Player>
  */
 class PlayersFactory extends Factory
 {

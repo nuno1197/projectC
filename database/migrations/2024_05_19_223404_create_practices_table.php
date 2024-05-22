@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('practices', function (Blueprint $table) {
             $table->id();
-            $table->integer('pratice_number');
-            $table->string('pratice_location');
+            $table->integer('practice_number');
+            $table->string('practice_location');
             $table->datetime('start_time');
             $table->datetime('end_time');
             $table->longText('comments')->nullable();

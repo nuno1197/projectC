@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Players;
+use App\Models\Player;
 use App\Models\Roster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PlayersController extends Controller
+class PlayerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Roster $roster)
     {
-        $players= Players::where('roster_id',$roster->id)->get();
+        $players= Player::where('roster_id',$roster->id)->get();
 
 
         return view('players.index',[
@@ -67,7 +67,7 @@ class PlayersController extends Controller
 
 
 
-        $players = Players::create([
+        $players = Player::create([
             'name' => request('name'),
             'birth_date' => request('birth_date'),
             'position' => request('position'),
@@ -86,7 +86,7 @@ class PlayersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Players $players)
+    public function show(Player $players)
     {
         //
     }
@@ -94,7 +94,7 @@ class PlayersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Players $players)
+    public function edit(Player $players)
     {
 
 
@@ -106,7 +106,7 @@ class PlayersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Players $players)
+    public function update(Request $request, Player $players)
     {
 
         $photo_path="";
@@ -133,7 +133,7 @@ class PlayersController extends Controller
             'jersey_number' => request('jersey_number'),
             'photo_path' => $photo_path,
             'player_notes' => request('player_notes'),
-            'roster_id' => Players::where('roster_id',$players->roster_id)->first()->roster_id,
+            'roster_id' => Player::where('roster_id',$players->roster_id)->first()->roster_id,
         ]);
 
         return redirect('/players/edit/' . $players->id)->withSuccess('Player Profile updated successfully!');
@@ -143,7 +143,7 @@ class PlayersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Players $players)
+    public function destroy(Player $players)
     {
         $rosterID= $players->roster_id;
 

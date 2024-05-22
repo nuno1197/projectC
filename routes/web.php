@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\PlayersController;
-use App\Http\Controllers\PracticesController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RosterController;
 use App\Http\Controllers\SeasonsController;
@@ -11,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     if(Auth::check()){
-        return view('roster.index');
+        return redirect('landing');
     }
 
     return view('welcome');
@@ -39,19 +41,24 @@ Route::patch('/roster/{roster}', [RosterController::class, 'update'])->name('ros
 Route::delete('/roster/{roster}', [RosterController::class, 'destroy'])->name('roster.delete')->middleware('auth');
 
 
-Route::get('/players/{roster}', [PlayersController::class, 'index'])->name('players.index')->middleware(['auth', 'verified']);
-Route::get('/players/{roster}/create', [PlayersController::class, 'create'])->name('players.create')->middleware(['auth', 'verified']);
-Route::post('/players', [PlayersController::class, 'store'])->name('players.store')->middleware(['auth', 'verified']);
-Route::get('/players/edit/{players}', [PlayersController::class, 'edit'])->name('players.edit')->middleware('auth');
-Route::patch('/players/{players}', [PlayersController::class, 'update'])->name('players.patch')->middleware('auth');
-Route::delete('/players/{players}', [PlayersController::class, 'destroy'])->name('players.delete')->middleware('auth');
+Route::get('/players/{roster}', [PlayerController::class, 'index'])->name('players.index')->middleware(['auth', 'verified']);
+Route::get('/players/{roster}/create', [PlayerController::class, 'create'])->name('players.create')->middleware(['auth', 'verified']);
+Route::post('/players', [PlayerController::class, 'store'])->name('players.store')->middleware(['auth', 'verified']);
+Route::get('/players/edit/{players}', [PlayerController::class, 'edit'])->name('players.edit')->middleware('auth');
+Route::patch('/players/{players}', [PlayerController::class, 'update'])->name('players.patch')->middleware('auth');
+Route::delete('/players/{players}', [PlayerController::class, 'destroy'])->name('players.delete')->middleware('auth');
 
 
 
-Route::get('/practices/{roster}', [PracticesController::class, 'index'])->name('practices.index')->middleware(['auth', 'verified']);
-Route::get('/practices/{roster}/create', [PracticesController::class, 'create'])->name('practices.create')->middleware(['auth', 'verified']);
-Route::post('/practices', [PracticesController::class, 'store'])->name('practice.store')->middleware(['auth', 'verified']);
 
+Route::get('/practices/{roster}/create', [PracticeController::class, 'create'])->name('practices.create')->middleware(['auth', 'verified']);
+Route::post('/practices', [PracticeController::class, 'store'])->name('practice.store')->middleware(['auth', 'verified']);
+Route::get('/practices/{practice}', [PracticeController::class, 'edit'])->name('practice.edit')->middleware('auth');
+Route::patch('/practice/{practice}', [PracticeController::class, 'update'])->name('practice.patch')->middleware('auth');
 
+Route::get('/games/{roster}/create', [GameController::class, 'create'])->name('games.create')->middleware(['auth', 'verified']);
+Route::post('/games', [GameController::class, 'store'])->name('games.store')->middleware(['auth', 'verified']);
+
+Route::get('/events/{roster}', [EventsController::class, 'index'])->name('events.index')->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

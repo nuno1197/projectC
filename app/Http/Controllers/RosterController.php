@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Players;
+use App\Models\Player;
 use App\Models\Roster;
 use App\Models\Seasons;
 use Carbon\Carbon;
@@ -131,7 +131,7 @@ class RosterController extends Controller
     public function destroy(Roster $roster)
     {
 
-        $players= Players::where('roster_id',$roster->id)->get();
+        $players= Player::where('roster_id',$roster->id)->get();
         $players->each->delete();
         $roster->delete();
 

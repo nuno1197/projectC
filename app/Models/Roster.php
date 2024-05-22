@@ -29,15 +29,15 @@ class Roster extends Model
 
     public function players(): BelongsToMany
     {
-        return $this->belongsToMany(Players::class);
+        return $this->belongsToMany(Player::class);
     }
 
     public function practices(): BelongsToMany
     {
-        return $this->belongsToMany(Practices::class);
+        return $this->belongsToMany(Practice::class);
     }
     public function games(): BelongsToMany
     {
-        return $this->belongsToMany(Games::class);
+        return $this->belongsToMany(Game::class);
     }
 }

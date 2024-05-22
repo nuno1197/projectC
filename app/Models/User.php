@@ -55,7 +55,12 @@ class User extends Authenticatable
 
     public function practices(): BelongsToMany
     {
-        return $this->belongsToMany(Practices::class);
+        return $this->belongsToMany(Practice::class);
+    }
+
+    public function games(): BelongsToMany
+    {
+        return $this->belongsToMany(Game::class);
     }
 
 
