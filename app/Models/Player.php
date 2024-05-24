@@ -22,4 +22,9 @@ class Player extends Model
     {
         return $this->belongsToMany(Game::class);
     }
+
+    public function gameplan(): BelongsTo
+    {
+        return $this->belongsTo(gameplan::class);
+    }
 }

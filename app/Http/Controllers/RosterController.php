@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Player;
 use App\Models\Roster;
-use App\Models\Seasons;
+use App\Models\Season;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +18,8 @@ class RosterController extends Controller
     public function index($seasonsID)
     {
 
-        $rosters = Roster::where('seasons_id', $seasonsID)->get();
-        $seasons = Seasons::find($seasonsID);
+        $rosters = Roster::where('season_id', $seasonsID)->get();
+        $seasons = Season::find($seasonsID);
 
 
         return view('roster.index',[
@@ -47,7 +47,7 @@ class RosterController extends Controller
      */
     public function create($seasonsID)
     {
-        $seasons = Seasons::find($seasonsID);
+        $seasons = Season::find($seasonsID);
 
         return view('roster.create',[
             'seasons' => $seasons,
@@ -67,13 +67,13 @@ class RosterController extends Controller
             'gender'=> ['required'],
         ]);
 
-        $season=Seasons::where('season_string',request('season'))->first();
+        $season=Season::where('season_string',request('season'))->first();
 
         $roster = Roster::create([
             'roster_name' => request('roster_name'),
             'age_squad' => request('age_squad'),
             'gender'=> request('gender'),
-            'seasons_id' => $season->id,
+            'season_id' => $season->id,
             'user_id' => Auth::user()->id
         ]);
 
@@ -101,7 +101,7 @@ class RosterController extends Controller
     {
 
 
-        $seasons= Seasons::all();
+        $seasons= Season::all();
         return view('roster.edit', [
             'roster' => $roster,
             'seasons' => $seasons
@@ -118,7 +118,7 @@ class RosterController extends Controller
             'roster_name' => $request->roster_name,
             'age_squad' => $request->age_squad,
             'gender'=> $request->gender,
-            'seasons_id' => Seasons::where('season_string',$request->season)->first()->id,
+            'season_id' => Season::where('season_string',$request->season)->first()->id,
             'user_id' => Auth::user()->id
         ]);
 

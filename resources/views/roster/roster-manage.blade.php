@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Manage ') }} - {{$roster->roster_name}} {{$roster->age_squad}} <span class="text-flax font-bold">{{getSeasonString($roster->seasons_id)}}</span>
+            {{ __('Manage ') }} - {{$roster->roster_name}} {{$roster->age_squad}} <span class="text-flax font-bold">{{getSeasonString($roster->season_id)}}</span>
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <h2 class="font-semibold text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
             <span class="italic">“If nobody will help you, do it alone.”</span> Michael Jordan
         </h2>
-        <x-button class="ml-auto"  href="{{ route('roster.index' ,['season' => $roster->seasons_id])}}">Go to Rosters</x-button>
+        <x-button class="ml-auto"  href="{{ route('roster.index' ,['season' => $roster->season_id])}}">Go to Rosters</x-button>
     </x-slot>
     <!--Aqui-->
     <div class="flex justify-center">

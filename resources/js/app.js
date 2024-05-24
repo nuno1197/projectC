@@ -3,7 +3,6 @@ import { createApp } from 'vue';
 import EventCalendar from './components/EventCalendar.vue';
 import DrillsComponent from './components/DrillsComponent.vue';
 
-
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;

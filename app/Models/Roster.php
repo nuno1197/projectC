@@ -24,7 +24,7 @@ class Roster extends Model
 
     public function seasons(): BelongsTo
     {
-        return $this->belongsTo(Seasons::class);
+        return $this->belongsTo(Season::class);
     }
 
     public function players(): BelongsToMany

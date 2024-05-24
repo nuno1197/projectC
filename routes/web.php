@@ -56,8 +56,13 @@ Route::post('/practices', [PracticeController::class, 'store'])->name('practice.
 Route::get('/practices/{practice}', [PracticeController::class, 'edit'])->name('practice.edit')->middleware('auth');
 Route::patch('/practice/{practice}', [PracticeController::class, 'update'])->name('practice.patch')->middleware('auth');
 
-Route::get('/games/{roster}/create', [GameController::class, 'create'])->name('games.create')->middleware(['auth', 'verified']);
-Route::post('/games', [GameController::class, 'store'])->name('games.store')->middleware(['auth', 'verified']);
+Route::get('/planning/games/{roster}', [GameController::class, 'index'])->name('games.index')->middleware(['auth', 'verified']);
+Route::get('/planning/games/{roster}/create', [GameController::class, 'create'])->name('games.create')->middleware(['auth', 'verified']);
+Route::get('/planning/games/{roster}/edit/{game}', [GameController::class, 'edit'])->name('games.edit')->middleware(['auth', 'verified']);
+Route::post('/game', [GameController::class, 'store'])->name('games.store')->middleware(['auth', 'verified']);
+Route::patch('/games/{game}', [GameController::class, 'update'])->name('games.patch')->middleware('auth');
+Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.delete')->middleware('auth');
+Route::get('/game/plangame/{game}', [GameController::class, 'indexGameplan'])->name('games.indexplangame')->middleware(['auth', 'verified']);
 
 Route::get('/planning/menu/{roster}', [PlanningController::class, 'index'])->name('planning.index')->middleware(['auth', 'verified']);
 Route::get('/planning/events/{roster}', [PlanningController::class, 'events'])->name('planning.events')->middleware(['auth', 'verified']);

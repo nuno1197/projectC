@@ -33,7 +33,7 @@
 
                         <div class="mt-2">
 
-                            <x-form_components.form-dropdown name="season" default-option="{{getSeasonString($roster->seasons_id)}}" >
+                            <x-form_components.form-dropdown name="season" default-option="{{getSeasonString($roster->season_id)}}" >
                                 <li>
                                     <a></a>
                                     @foreach($seasons as $season)

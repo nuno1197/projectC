@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Player>
  */
-class PlayersFactory extends Factory
+class PlayerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class PlayersFactory extends Factory
             'position' => fake()->randomElement(['PG', 'SG' , 'SF' , 'PF' , 'C']),
             'jersey_number' => fake()->numberBetween(0,99),
             'player_notes' => fake()->text(),
-            'roster_id'=> 3,
+            'roster_id'=> 1,
         ];
     }
 }

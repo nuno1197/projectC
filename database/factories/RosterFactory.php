@@ -22,7 +22,7 @@ class RosterFactory extends Factory
             'age_squad' => "under " . fake()->numberBetween(6,23),
             'gender' => fake()->randomElement(['male', 'female']),
             'user_id'=> 1,
-            'seasons_id' => 1,
+            'season_id' => 1,
 
         ];
     }

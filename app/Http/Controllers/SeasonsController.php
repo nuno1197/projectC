@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Seasons;
+use App\Models\Season;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +13,7 @@ class SeasonsController extends Controller
      */
     public function index()
     {
-        $seasons=Seasons::all();
+        $seasons=Season::all();
 
         return view('landing',[
             'seasons' => $seasons,
@@ -40,7 +40,7 @@ class SeasonsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Seasons $seasons)
+    public function show(Season $seasons)
     {
         //
     }
@@ -48,7 +48,7 @@ class SeasonsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Seasons $seasons)
+    public function edit(Season $seasons)
     {
         //
     }
@@ -56,7 +56,7 @@ class SeasonsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Seasons $seasons)
+    public function update(Request $request, Season $seasons)
     {
         //
     }
@@ -64,7 +64,7 @@ class SeasonsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Seasons $seasons)
+    public function destroy(Season $seasons)
     {
         //
     }

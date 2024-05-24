@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('local');
             $table->datetime('start_date');
             $table->datetime('end_date');
+            $table->text('off_keys')->nullable();
+            $table->text('def_keys')->nullable();
+            $table->text('notes')->nullable();
             $table->foreignIdFor(Roster::class);
             $table->foreignIdFor(User::class);
             $table->timestamps();

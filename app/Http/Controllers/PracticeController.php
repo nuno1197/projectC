@@ -65,7 +65,6 @@ class PracticeController extends Controller
      */
     public function update(Request $request, Practice $practice){
 
-        dd($request->all());
 
         $practice->update([
             'pratice_number' => $request->pratice_number,

@@ -44,7 +44,7 @@ class PlanningController extends Controller
                 'description' => $game->comp_name,
                 'backgroundColor' => '#E57A44',
                 'textColor' => '#111827',
-                'url' => '#',
+                'url' => route('games.edit',['roster'=>$game->roster_id,'game' => $game->id]),
             ];
         }
 

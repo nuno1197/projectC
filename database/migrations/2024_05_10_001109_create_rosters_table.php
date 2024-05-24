@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('age_squad');
             $table->string('gender');
             $table->foreignIdFor(\App\Models\User::class);
-            $table->foreignIdFor(\App\Models\Seasons::class);
+            $table->foreignIdFor(\App\Models\Season::class);
             $table->timestamps();
         });
     }

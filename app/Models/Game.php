@@ -28,4 +28,10 @@ class Game extends Model
     {
         return $this->belongsToMany(Player::class);
     }
+
+    public function gameplan(): BelongsTo
+    {
+        return $this->belongsTo(GamePlan::class);
+    }
+
 }
