@@ -46,6 +46,6 @@ class GameController extends Controller
             'roster_id' => request('roster_id'),
         ]);
 
-        return redirect(route('events.index', ['roster' => request('roster_id')]))->withSuccess('Game added successfully!');
+        return redirect(route('planning.events', ['roster' => request('roster_id')]))->withSuccess('Game added successfully!');
     }
 }

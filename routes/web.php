@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\EventsController;
+use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\PracticeController;
@@ -59,6 +59,7 @@ Route::patch('/practice/{practice}', [PracticeController::class, 'update'])->nam
 Route::get('/games/{roster}/create', [GameController::class, 'create'])->name('games.create')->middleware(['auth', 'verified']);
 Route::post('/games', [GameController::class, 'store'])->name('games.store')->middleware(['auth', 'verified']);
 
-Route::get('/events/{roster}', [EventsController::class, 'index'])->name('events.index')->middleware(['auth', 'verified']);
+Route::get('/planning/menu/{roster}', [PlanningController::class, 'index'])->name('planning.index')->middleware(['auth', 'verified']);
+Route::get('/planning/events/{roster}', [PlanningController::class, 'events'])->name('planning.events')->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
