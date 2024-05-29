@@ -27,6 +27,7 @@
         "element-plus": "^2.7.3",
         "fullcalendar": "^6.1.12",
         "livewire": "^0.6.1",
+        "sortablejs": "^1.15.2",
         "vite-plugin-vuetify": "^2.0.3",
         "vue-router": "^4.0.13",
         "vuetify": "^3.6.7",

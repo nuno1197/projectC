@@ -63,6 +63,8 @@ Route::post('/game', [GameController::class, 'store'])->name('games.store')->mid
 Route::patch('/games/{game}', [GameController::class, 'update'])->name('games.patch')->middleware('auth');
 Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.delete')->middleware('auth');
 Route::get('/game/plangame/{game}', [GameController::class, 'indexGameplan'])->name('games.indexplangame')->middleware(['auth', 'verified']);
+Route::patch('/plangame/{game}', [GameController::class, 'updateGamePlan'])->name('games.updategameplan')->middleware(['auth', 'verified']);
+Route::get('/plangame/generatePDF/{game}', [GameController::class, 'createPDF'])->name('games.game_plan_pdf')->middleware(['auth', 'verified']);
 
 Route::get('/planning/menu/{roster}', [PlanningController::class, 'index'])->name('planning.index')->middleware(['auth', 'verified']);
 Route::get('/planning/events/{roster}', [PlanningController::class, 'events'])->name('planning.events')->middleware(['auth', 'verified']);

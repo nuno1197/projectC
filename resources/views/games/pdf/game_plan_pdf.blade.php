@@ -1,7 +1,7 @@
-<!-- resources/views/pdf_layout.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <style>
         body {
@@ -38,9 +38,9 @@
 <body>
 <table class="header-table">
     <tr>
-        <td>Game:</td>
-        <td>Date:</td>
-        <td>Local:</td>
+        <td>Game: {{$game->opp_name}}</td>
+        <td>Date:{{$game->start_date}}</td>
+        <td>Local: {{$game->local}}</td>
     </tr>
 </table>
 
@@ -48,54 +48,37 @@
     <tr>
         <th>Nº</th>
         <th>Athlete</th>
-        <th colspan="3">1st Quarter</th>
-        <th colspan="3">2nd Quarter</th>
+        <th>Position</th>
     </tr>
+    @foreach($players as $player )
     <tr>
-        <th>00</th>
-        <td>NameAthlete</td>
-        <th>Nº</th>
-        <th>Athlete</th>
-        <th>Function</th>
-        <th>Nº</th>
-        <th>Athlete</th>
-        <th>Function</th>
+        <th>{{$player->jersey_number}}</th>
+        <td>{{$player->name}}</td>
+        <td>{{$player->position}}</td>
     </tr>
-    <!-- Repeat for each athlete -->
-    @for ($i = 0; $i < 8; $i++)
-        <tr>
-            <th>00</th>
-            <td>NameAthlete</td>
-            <th>00</th>
-            <td>NameAthlete</td>
-            <td>00</td>
-            <th>00</th>
-            <td>NameAthlete</td>
-            <td>00</td>
-        </tr>
-    @endfor
+    @endforeach
 </table>
 
 <table>
     <tr>
-        <td><img src="path/to/court_diagram.png" class="court-diagram"></td>
-        <td><img src="path/to/court_diagram.png" class="court-diagram"></td>
+        <td><img src="data:image/png;base64,<?php echo base64_encode(file_get_contents(base_path('resources/images/pdf/halfcourt.png'))); ?>" class="court-diagram" alt="halfcourt"></td>
+        <td><img src="data:image/png;base64,<?php echo base64_encode(file_get_contents(base_path('resources/images/pdf/fullcourt.png'))); ?>" class="court-diagram" alt="fullcourt"></td>
     </tr>
 </table>
 
 <div>
     <h4>OFFENSIVE KEYS:</h4>
-    <p style="border: 1px solid black; height: 100px;"></p>
+    <p style="border: 1px solid black; height: 100px;">{{$game->off_keys}}</p>
 </div>
 
 <div>
     <h4>DEFENSIVE KEYS:</h4>
-    <p style="border: 1px solid black; height: 100px;"></p>
+    <p style="border: 1px solid black; height: 100px;">{{$game->def_keys}}</p>
 </div>
 
 <div class="notes">
     <h4>NOTES:</h4>
-    <p style="border: 1px solid black; height: 50px;"></p>
+    <p style="border: 1px solid black; height: 50px;">{{$game->notes}}</p>
 </div>
 </body>
 </html>
