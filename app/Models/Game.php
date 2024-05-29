@@ -34,4 +34,28 @@ class Game extends Model
         return $this->belongsTo(GamePlan::class);
     }
 
+    public static function remove_players_game($gameID,$player_id)
+    {
+        $players = Game::find($gameID)->players;
+        $game = Game::find(1);
+        foreach ($players as $player) {
+            if($player->id != $player_id) {
+                $game->players()->detach($player->id);
+            }
+        }
+
+    }
+
+    public static function checkDuplicateRequest($gameID, $playerID): bool
+    {
+        $players = Game::find($gameID)->players;
+
+        if($players->contains($playerID)){
+            return true;
+        }
+
+        return false;
+
+    }
+
 }

@@ -3,7 +3,12 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{$rosters->roster_name}} {{$rosters->age_squad}} - {{ __('Create Practice') }}
         </h2>
-
+    </x-slot>
+    <x-slot name="secondHeader">
+        <h2 class="font-semibold italic text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
+            The Process.
+        </h2>
+        <x-button class="ml-auto bg-flax text-orange_fruit"  href="{{ route('planning.index', ['roster' => $rosters])}}">Go Back to Planning Menu</x-button>
     </x-slot>
 
     @if (session('success'))
@@ -21,12 +26,12 @@
                     </div>
                     <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                         <div class="col-span-full sm:col-span-3">
-                            <label for="pratice_number" class="text-sm">Practice Number</label>
-                            <input id="pratice_number" type="number" placeholder="1" name="pratice_number" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
+                            <label for="practice_number" class="text-sm">Practice Number</label>
+                            <input id="practice_number" type="number" placeholder="1" name="practice_number" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
                         </div>
                         <div class="col-span-full sm:col-span-3">
-                            <label for="pratice_number" class="text-sm">Practice Location</label>
-                            <input id="pratice_location" type="text" placeholder="Staples Center" name="pratice_location" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
+                            <label for="practice_number" class="text-sm">Practice Location</label>
+                            <input id="practice_location" type="text" placeholder="Staples Center" name="practice_location" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
                         </div>
                         <div class="col-span-full sm:col-span-3">
                             <label for="start_time" class="text-sm">Start Practice Time</label>

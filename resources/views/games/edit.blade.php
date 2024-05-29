@@ -43,6 +43,7 @@
                 </fieldset>
 
                 <div class="mt-6 ml-auto mr-6 flex items-center justify-end gap-x-6">
+                    <x-button href="{{ route('games.indexplangame', ['game' =>$game]) }}"> Plan Game </x-button>
                     <a href="{{ url()->previous() }}" class="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-900 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Cancel</a>
                     <x-orangeButton>Update Game</x-orangeButton>
                 </div>

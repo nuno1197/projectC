@@ -6,6 +6,7 @@ use App\Models\Practice;
 use Illuminate\Http\Request;
 use App\Models\Roster;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PracticeController extends Controller
 {
@@ -26,24 +27,23 @@ class PracticeController extends Controller
     public function store(Request $request){
 
         request()->validate([
-            'pratice_number' => ['required'],
-            'pratice_location' => ['required'],
-            'start_date' => ['required'|'date'],
-            'end_date'=> ['required' | 'date'],
+            'practice_number' => ['required'],
+            'practice_location' => ['required'],
+            'start_time' => 'required|date',
+            'end_time'=> 'required|date',
         ]);
 
-        $rosters = Roster::find(request('roster_id'));
 
         $practice = Practice::create([
-            'pratice_number' => request('pratice_number'),
-            'pratice_location' => request('pratice_location'),
+            'practice_number' => request('practice_number'),
+            'practice_location' => request('practice_location'),
             'start_time'=> request('start_time'),
             'end_time' => request('end_time'),
             'user_id' => Auth::user()->id,
             'roster_id' => request('roster_id'),
         ]);
 
-        return redirect(route('events.index', ['roster' => request('roster_id')]))->withSuccess('Practice created successfully!');
+        return redirect(route('planning.events', ['roster' => request('roster_id')]))->withSuccess('Practice created successfully!');
     }
 
     /**
@@ -67,8 +67,8 @@ class PracticeController extends Controller
 
 
         $practice->update([
-            'pratice_number' => $request->pratice_number,
-            'pratice_location' => $request->pratice_location,
+            'practice_number' => $request->pratice_number,
+            'practice_location' => $request->pratice_location,
             'start_time'=> $request->start_time,
             'end_time'=> $request->end_time,
             'comments'=> $request->comments,

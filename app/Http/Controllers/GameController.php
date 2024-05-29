@@ -135,13 +135,14 @@ class GameController extends Controller
 
         $player_ids=$request->selected_players;
         $player_ids= explode(",", $player_ids);
-        $gameAux = Game::find($game->id);
-
-        foreach($player_ids as $player_id){
-            $gameAux->players()->attach($player_id);
-        }
-
-        $this->indexGameplan($game);
+        //$gameAux = Game::find($game->id);
+        // IDs dos jogadores atuais do jogo
+        $currentPlayerIds = $game->players()->pluck('player_id')->toArray();
+        // IDs dos jogadores que precisam ser removidos (presentes no BD, mas não na request)
+        $playersToRemove = array_diff($currentPlayerIds, $player_ids);
+        // Remover os jogadores do jogo
+        $game->players()->detach($playersToRemove);
+        $game->players()->sync($player_ids);
 
 
         return redirect(route('games.indexplangame' , ['game' => $game]))->withSuccess('Game updated successfully!');

@@ -39,7 +39,7 @@
 <table class="header-table">
     <tr>
         <td>Game: {{$game->opp_name}}</td>
-        <td>Date:{{$game->start_date}}</td>
+        <td>Date: {{\Carbon\Carbon::parse($game->start_date)->format('Y-m-d H:i')}}</td>
         <td>Local: {{$game->local}}</td>
     </tr>
 </table>
