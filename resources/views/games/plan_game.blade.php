@@ -43,7 +43,7 @@
                                     <h2 class="text-xl font-semibold mb-2">Available Players</h2>
                                     <ul id="availablePlayers" class="space-y-2">
                                         @foreach($players as $player)
-                                            <li data-id="{{ $player['id'] }}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-pointer">
+                                            <li data-id="{{ $player['id'] }}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-pointer cursor-move">
                                                 <span class="font-bold text-pacific_cyan">{{ $player['position'] }}</span> <span class="font-bold">{{ $player['name'] }}</span>  <span class="font-bold text-orange_fruit">#{{ $player['jersey_number'] }}</span>
                                             </li>
                                         @endforeach
@@ -53,7 +53,7 @@
                                     <h2 class="text-xl font-semibold mb-2">Selected Players</h2>
                                     <ul id="selectedPlayers" class="space-y-2 min-h-[56px]">
                                         @foreach($selected_players as $player)
-                                            <li data-id="{{ $player->id}}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-pointer">
+                                            <li data-id="{{ $player->id}}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-pointer cursor-move">
                                                 <span class="font-bold text-pacific_cyan">{{ $player->position }}</span> <span class="font-bold">{{ $player->name }}</span>  <span class="font-bold text-orange_fruit">#{{ $player->jersey_number}}</span>
                                             </li>
                                         @endforeach
@@ -118,6 +118,4 @@
             document.forms[0].submit();
         }
     </script>
-
-
 </x-app-layout>
