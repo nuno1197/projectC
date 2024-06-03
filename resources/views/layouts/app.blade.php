@@ -15,12 +15,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-rich_black bg-curves">
+        <div class="min-h-screen bg-flax dark:bg-rich_black bg-curves">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
+                <header class="bg-[#f7efd2] border-orange_fruit dark:bg-gray-800 shadow dark:border-pacific_cyan">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                         {{ $header }}
                     </div>
@@ -29,10 +29,16 @@
 
             <!-- Page Heading -->
             @if (isset($secondHeader))
-                <header class="bg-white dark:bg-gray-800 shadow">
+                <header class="bg-[#f7efd2] border-t-2 border-orange_fruit dark:bg-gray-800 shadow dark:border-pacific_cyan" >
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                         {{ $secondHeader }}
+                        <div class="hidden sm:-my-px sm:ms-10 sm:flex">
+                            @if (isset($navlinks))
+                                {{$navlinks}}
+                            @endif
+                        </div>
                     </div>
+
                 </header>
             @endif
 

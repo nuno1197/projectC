@@ -32,6 +32,7 @@
                             <x-nav-link href="/home" :active="request()->is('home')">Home</x-nav-link>
                         </div>
                     </div>
+
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-4 flex items-center md:ml-6">

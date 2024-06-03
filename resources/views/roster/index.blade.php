@@ -9,7 +9,11 @@
         <h2 class="font-semibold italic text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
             Team is one.
         </h2>
-
+        <x-slot name="navlinks">
+            <x-nav-link :href="route('roster.index',['season' => $seasons])" :active="request()->routeIs('roster.index')">
+                {{ __('Rosters') }}
+            </x-nav-link>
+        </x-slot>
     </x-slot>
 
 

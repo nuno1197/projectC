@@ -9,7 +9,12 @@
         <h2 class="font-semibold text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
             <span class="italic">“If nobody will help you, do it alone.”</span> Michael Jordan
         </h2>
-        <x-button class="ml-auto"  href="{{ route('roster.index' ,['season' => $roster->season_id])}}">Go to Rosters</x-button>
+        <x-slot name="navlinks">
+            <x-nav-link :href="route('roster.index',['season' => $roster->season_id])" :active="request()->routeIs('roster.index')">
+                {{ __('Rosters') }}
+            </x-nav-link>
+        </x-slot>
+{{--        <x-button class="ml-auto"  href="{{ route('roster.index' ,['season' => $roster->season_id])}}">Go to Rosters</x-button>--}}
     </x-slot>
     <!--Aqui-->
     <div class="flex justify-center">

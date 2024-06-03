@@ -26,7 +26,7 @@ class PlayerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($rosterID)
+    public function create(Roster $roster)
     {
 
         return view('players.create',[
