@@ -9,7 +9,20 @@
         <h2 class="font-semibold italic text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
             Past, Present and Future Games.
         </h2>
-        <x-button class="ml-auto bg-flax text-orange_fruit"  href="{{ route('planning.index', ['roster' => $roster])}}">Go Back to Planning Menu</x-button>
+        <x-slot name="navlinks">
+            <x-nav-link :href="route('roster.index',['season' => $roster->season_id])" :active="request()->routeIs('roster.index')">
+                {{ __('Rosters') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('roster.indexRoster',['roster' => $roster->id])" :active="request()->routeIs('roster.indexRoster')">
+                {{ __('Roster Management') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('planning.index',['roster' => $roster->id])" :active="request()->routeIs('planning.index')">
+                {{ __('Planning Menu') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('games.index',['roster' => $roster->id])" :active="request()->routeIs('games.index')">
+                {{ __('Game List') }}
+            </x-nav-link>
+        </x-slot>
     </x-slot>
 
     <div class="mb-4">

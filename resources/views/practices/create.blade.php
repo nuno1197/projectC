@@ -8,7 +8,6 @@
         <h2 class="font-semibold italic text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
             The Process.
         </h2>
-        <x-button class="ml-auto bg-flax text-orange_fruit"  href="{{ route('planning.index', ['roster' => $rosters])}}">Go Back to Planning Menu</x-button>
     </x-slot>
 
     @if (session('success'))
@@ -19,7 +18,7 @@
             <form method="POST" action="{{ route('practice.store') }}">
             @csrf
                 <input type="hidden"  name="roster_id" value="{{$rosters->id}}">
-                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-400">
+                <fieldset class="grid grid-cols-4 gap-6 text-orange_fruit font-extrabold p-6 rounded-md shadow-sm dark:bg-rich_black dark:text-white">
                     <div class="space-y-2 col-span-full lg:col-span-1">
                         <p class="font-medium">Practice Info (TU)</p>
                         <p class="text-xs italic">Add another step to the process.</p>

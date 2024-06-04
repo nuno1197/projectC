@@ -3,7 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Player Profile') }} - {{$player->name}}
         </h2>
-        <x-button class="ml-auto"  href="{{ url()->previous() }}">Go Back</x-button>
     </x-slot>
 
 
@@ -12,11 +11,11 @@
     @endif
     <h1 class="text-pacific_cyan font-bold text-xl">Player Info</h1>
     <span class="text-pacific_cyan font-bold text-sm">You can edit all fields, just click the icon, change what you need to change, and click UPDATE. </span>
-    <div class="py-12">
+    <div class="py-12 ">
         <form method="POST" action="{{ route('players.patch', ['players' => $player->id]) }}" enctype="multipart/form-data">
         @method('PATCH')
         @csrf
-            <div class="flex flex-col md:flex-row bg-gray-100 rounded-lg p-4 shadow-md">
+            <div class="flex flex-col md:flex-row bg-white rounded-lg p-4 text-orange_fruit font-extrabold shadow-md dark:bg-rich_black dark:text-white ">
                 <!-- Component A -->
                 <div x-data="{
                     editingName: false,
@@ -38,21 +37,21 @@
                         this.newImage = event.target.files[0];
                         this.editingImage = true;
                     }
-                }" class="w-full md:w-1/3 mb-4 md:mb-0 bg-gray-800 border-pacific_cyan rounded-lg p-4 shadow-md">
+                }" class="w-full md:w-1/3 mb-4 md:mb-0 bg-white rounded-lg p-4 border-2 border-gray-500 shadow-md dark:bg-rich_black dark:text-white dark:border-orange_fruit">
                     <!-- Profile Image -->
                     <div class="relative flex justify-center mb-4">
                         <!-- Add a border around the profile picture -->
-                        <img :src="newImage ? URL.createObjectURL(newImage) : imagePreview" alt="Profile Picture" class="w-50 h-48 rounded-lg border border-orange_fruit border-2">
+                        <img :src="newImage ? URL.createObjectURL(newImage) : imagePreview" alt="Profile Picture" class="w-50 h-48 rounded-lg border-gray-500 border-2 dark:bg-rich_black dark:text-white dark:border-orange_fruit">
                         <!-- Button to change image -->
                         <input x-ref="fileInput" name="photo_path" type="file" @change="handleImageChange" class="absolute inset-0 opacity-0 cursor-pointer">
                         <button type="button" @click="selectNewImage" class="absolute bottom-0 mt-10 bg-blue-500 text-white px-2 py-1 rounded-md z-10 hover:bg-blue-700">Change</button>
                     </div>
 
                     <!-- Profile Details -->
-                    <div class="w-full md:w-2/3 p-4 mx-auto text-center rounded border border-orange_fruit border-2 bg-flax">
+                    <div class="w-full md:w-2/3 p-4 mx-auto text-center rounded border-gray-500 border-2 bg-flax text-rich_black font-extrabold dark:bg-rich_black dark:text-white dark:border-orange_fruit">
                         <!-- Editable Name -->
                         <div class="mb-2 flex justify-between items-center" x-show="!editingName">
-                            <label class="text-sm text-rich_black font-bold"> Player Name: </label>
+                            <label class="text-sm font-bold"> Player Name: </label>
                             <div class="text-pacific_cyan font-bold" x-text="playerName"></div>
                             <!-- Icon to trigger editing -->
                             <button type="button" @click="editingName = true" class="text-orange_fruit hover:text-orange-800"><i class="fas fa-pencil-alt"></i></button>
@@ -67,7 +66,7 @@
                         </div>
                         <!-- Editable Position -->
                         <div class="mb-2 flex justify-between items-center" x-show="!editingPosition">
-                            <label class="text-sm text-rich_black font-bold"> Position: </label>
+                            <label class="text-sm font-bold"> Position: </label>
                             <div class="text-pacific_cyan font-bold" x-text="playerPosition"></div>
                             <!-- Icon to trigger editing -->
                             <button type="button" @click="editingPosition = true" class="text-orange_fruit hover:text-orange-800"><i class="fas fa-pencil-alt"></i></button>
@@ -82,7 +81,7 @@
                         </div>
                         <!-- Editable Birth Date -->
                         <div class="mb-2 flex justify-between items-center" x-show="!editingBirthDate">
-                            <label class="text-sm text-rich_black font-bold"> Birth Date: </label>
+                            <label class="text-sm font-bold"> Birth Date: </label>
                             <div class="text-pacific_cyan font-bold" x-text="playerBirthDate"></div>
                             <!-- Icon to trigger editing -->
                             <button type="button" @click="editingBirthDate = true" class="text-orange_fruit hover:text-orange-800"><i class="fas fa-pencil-alt"></i></button>
@@ -97,7 +96,7 @@
                         </div>
                         <!-- Editable Player's Number -->
                         <div class="mb-2 flex justify-between items-center" x-show="!editingNumber">
-                            <label class="text-sm text-rich_black font-bold"> Number: </label>
+                            <label class="text-sm font-bold"> Number: </label>
                             <div class="text-pacific_cyan font-bold" x-text="playerNumber"></div>
                             <!-- Icon to trigger editing -->
                             <button type="button" @click="editingNumber = true" class="text-orange_fruit hover:text-orange-800"><i class="fas fa-pencil-alt"></i></button>
@@ -119,7 +118,7 @@
                 <div x-data="{
                     editingBio: false,
                     playerNotes: '{{ $player->player_notes }}'
-                }" class="w-full md:w-2/3 ml-0 md:ml-4 bg-gray-800 border-pacific_cyan rounded-lg p-4 shadow-md">
+                }" class="w-full md:w-2/3 ml-0 md:ml-4 bg-white border-2 border-gray-500 rounded-lg p-4 shadow-md dark:bg-rich_black dark:text-white dark:border-orange_fruit">
                     <!-- Editable Bio -->
                     <div class="mb-2" x-show="!editingBio">
                         <label class="mb-4 font-bold">Player Notes:</label>

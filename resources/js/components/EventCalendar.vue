@@ -1,5 +1,5 @@
 <template>
-    <div ref="calendar"></div>
+    <div ref="calendar" class="bg-white text-rich_black font-extrabold dark:bg-rich_black dark:text-white"></div>
 </template>
 
 <script>

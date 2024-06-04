@@ -11,7 +11,10 @@
         </h2>
         <x-slot name="navlinks">
             <x-nav-link :href="route('roster.index',['season' => $roster->season_id])" :active="request()->routeIs('roster.index')">
-                {{ __('Rosters') }}
+                {{ __('Rosters') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('roster.indexRoster',['roster' => $roster->id])" :active="request()->routeIs('roster.indexRoster')">
+                {{ __('Roster Management') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
             </x-nav-link>
         </x-slot>
 {{--        <x-button class="ml-auto"  href="{{ route('roster.index' ,['season' => $roster->season_id])}}">Go to Rosters</x-button>--}}

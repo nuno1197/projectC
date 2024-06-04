@@ -16,7 +16,7 @@
                 @csrf
                 <!-- Campo escondido para armazenar os jogadores selecionados -->
                 <input type="hidden" name="selected_players" id="selectedPlayersInput">
-                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-400">
+                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-rich_black dark:text-white">
                     <div class="space-y-2 col-span-full lg:col-span-1">
                         <p class="font-medium">Plan the Game Info</p>
                         <p class="text-xs italic">What are the keys for this game?</p>
@@ -24,36 +24,37 @@
                     <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                         <div class="col-span-full">
                             <label for="off_keys" class="text-sm">Offensive Keys</label>
-                            <textarea id="off_keys" name="off_keys" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">{{$game->off_keys}}</textarea>
+                            <textarea id="off_keys" name="off_keys" class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:dark:ring-orange-800 dark:border-orange_fruit dark:bg-gray-500 dark:text-white">{{$game->off_keys}}</textarea>
                         </div>
                         <div class="col-span-full">
                             <label for="def_keys" class="text-sm">Defensive Keys</label>
-                            <textarea id="def_keys" name="def_keys" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">{{$game->def_keys}}</textarea>
+                            <textarea id="def_keys" name="def_keys" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-white focus:dark:ring-orange-800 dark:border-orange_fruit dark:bg-gray-500">{{$game->def_keys}}</textarea>
                         </div>
                         <div class="col-span-full">
                             <label for="notes" class="text-sm">Some Notes</label>
-                            <textarea id="notes" name="notes" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">{{$game->notes}}</textarea>
+                            <textarea id="notes" name="notes" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-white focus:dark:ring-orange-800 dark:border-orange_fruit dark:bg-gray-500">{{$game->notes}}</textarea>
                         </div>
                     </div>
-                    <div class="col-span-full">
+                    <div class="col-span-full ">
+                        <hr class="rounded h-0.5 bg-gray-500 dark:border-orange_fruit font-extrabold">
                         <div class="container rounded-l mx-auto p-4">
                             <h1 class="text-2xl font-bold mb-4">Players Called Up</h1>
                             <div class="flex">
-                                <div class="w-1/2 bg-gray-100 p-4">
+                                <div class="w-1/2 bg-white p-4 border-2 rounded-md mr-4 border-rich_black dark:bg-rich_black dark:text-white dark:border-orange_fruit">
                                     <h2 class="text-xl font-semibold mb-2">Available Players</h2>
                                     <ul id="availablePlayers" class="space-y-2">
                                         @foreach($players as $player)
-                                            <li data-id="{{ $player['id'] }}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-pointer cursor-move">
+                                            <li data-id="{{ $player['id'] }}" class="p-2 bg-white border-2 border-orange_fruit rounded cursor-all-scroll dark:bg-rich_black dark:text-white">
                                                 <span class="font-bold text-pacific_cyan">{{ $player['position'] }}</span> <span class="font-bold">{{ $player['name'] }}</span>  <span class="font-bold text-orange_fruit">#{{ $player['jersey_number'] }}</span>
                                             </li>
                                         @endforeach
                                     </ul>
                                 </div>
-                                <div class="w-1/2 bg-gray-100 p-4">
+                                <div class="w-1/2 bg-white p-4 border-2 rounded-md mr-4 border-rich_black dark:bg-rich_black dark:text-white dark:border-orange_fruit">
                                     <h2 class="text-xl font-semibold mb-2">Selected Players</h2>
                                     <ul id="selectedPlayers" class="space-y-2 min-h-[56px]">
                                         @foreach($selected_players as $player)
-                                            <li data-id="{{ $player->id}}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-pointer cursor-move">
+                                            <li data-id="{{ $player->id}}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-all-scroll">
                                                 <span class="font-bold text-pacific_cyan">{{ $player->position }}</span> <span class="font-bold">{{ $player->name }}</span>  <span class="font-bold text-orange_fruit">#{{ $player->jersey_number}}</span>
                                             </li>
                                         @endforeach

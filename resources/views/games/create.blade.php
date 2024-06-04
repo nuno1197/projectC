@@ -9,12 +9,12 @@
         <x-success-message>{{ session('success') }}</x-success-message>
     @endif
     <div class="py-12">
-        <section class="p-6 dark:bg-rich_black dark:text-gray-900">
+        <section class="p-6 dark:bg-rich_black dark:text-white">
             <form method="POST" action="{{ route('games.store') }}">
             @csrf
                 <input type="hidden"  name="roster_id" value="{{$rosters->id}}">
-                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-400">
-                    <div class="space-y-2 col-span-full lg:col-span-1">
+                <fieldset class="grid grid-cols-4 gap-6 p-6 text-orange_fruit bg-white font-extrabold rounded-md shadow-sm dark:bg-rich_black dark:text-white">
+                    <div class="space-y-2 col-span-full lg:col-span-1 ">
                         <p class="font-medium">Game Info </p>
                         <p class="text-xs italic">Add another step to the process.</p>
                     </div>

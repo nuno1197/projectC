@@ -13,7 +13,7 @@
         <section class="p-6 dark:bg-rich_black dark:text-gray-900">
             <form method="POST" action="{{ route('players.store') }}" enctype="multipart/form-data">
             @csrf
-                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-400">
+                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-rich_black dark:text-white">
                     <div class="space-y-2 col-span-full lg:col-span-1">
                         <p class="font-medium">Add Player</p>
                         <p class="text-xs">Create a player for your roster!</p>
@@ -44,7 +44,7 @@
                             <label for="photo_path" class="text-sm">Player Photo</label>
                             <div class="flex items-center space-x-2">
                                 <!-- Preview image -->
-                                <img id="image-preview" src="https://source.unsplash.com/30x30/?random" alt="" class="w-10 h-10 dark:bg-orange-800 rounded-full dark:bg-orange_fruit">
+                                <img id="image-preview" src="https://source.unsplash.com/30x30/?random" alt="" class="w-52 h-52 rounded-md dark:bg-orange_fruit">
                                 <!-- Hidden file input -->
                                 <input type="file" id="photo_path" name="photo_path" accept="image/*" class="hidden" onchange="previewImage(event)">
 

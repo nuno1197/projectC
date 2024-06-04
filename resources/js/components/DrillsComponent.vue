@@ -1,7 +1,7 @@
 <template>
     <div class="mt-6">
         <div v-for="(drill, index) in drills" :key="index" class="mb-6">
-            <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-400 relative">
+            <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md border-2 border-gray-500 shadow-sm bg-white text-rich_black dark:bg-rich_black dark:text-white dark:border-orange_fruit relative ">
                 <div class="col-span-full lg:col-span-1">
                     <p class="font-medium">Drill {{ index + 1 }}</p>
                 </div>

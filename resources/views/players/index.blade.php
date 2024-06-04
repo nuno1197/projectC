@@ -12,7 +12,17 @@
             The Artists <i class="fa-solid fa-wand-magic-sparkles">.</i>
         </h2>
         <x-button class="ml-auto bg-orange_fruit"  href="{{ route('players.create', ['roster' => $rosters->id]) }}">Add Players</x-button>
-        <x-button class="ml-auto"  href="{{ url()->previous()}}">Go Back</x-button>
+        <x-slot name="navlinks">
+            <x-nav-link :href="route('roster.index',['season' => $rosters->season_id])" :active="request()->routeIs('roster.index')">
+                {{ __('Rosters') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('roster.indexRoster',['roster' => $rosters->id])" :active="request()->routeIs('roster.indexRoster')">
+                {{ __('Roster Management') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('players.index',['roster' => $rosters->id])" :active="request()->routeIs('players.index')">
+                {{ __('Players') }}
+            </x-nav-link>
+        </x-slot>
     </x-slot>
 
 

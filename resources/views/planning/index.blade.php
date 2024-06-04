@@ -9,7 +9,17 @@
         <h2 class="font-semibold text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
             <span class="font-extrabold">Plan. Test. Fail. Learn. Repeat.</span> <span class="text-flax font-extrabold"> <i class="fa-solid fa-repeat"></i></span>
         </h2>
-        <x-button class="ml-auto"  href="{{ route('roster.indexRoster' ,['roster' => $roster])}}">Go Back</x-button>
+        <x-slot name="navlinks">
+            <x-nav-link :href="route('roster.index',['season' => $roster->season_id])" :active="request()->routeIs('roster.index')">
+                {{ __('Rosters') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('roster.indexRoster',['roster' => $roster->id])" :active="request()->routeIs('roster.indexRoster')">
+                {{ __('Roster Management') }}&nbsp;&nbsp; <i class="fa-solid fa-arrow-right"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('planning.index',['roster' => $roster->id])" :active="request()->routeIs('planning.index')">
+                {{ __('Planning Menu') }}
+            </x-nav-link>
+        </x-slot>
     </x-slot>
     <!--Aqui-->
     <div class="flex justify-center">

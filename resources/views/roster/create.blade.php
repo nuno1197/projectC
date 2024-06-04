@@ -12,7 +12,7 @@
         <div class="py-12">
             <div class="border-b border-gray-900/10 pb-12">
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                    <x-form_components.form-field class="border bg-gray-500 rounded-2xl border-orange_fruit p-4">
+                    <x-form_components.form-field class="border bg-white rounded-2xl border-orange_fruit p-4 dark:bg-rich_black dark:text-white">
                         <x-form_components.form-label for="roster_name">Team Name</x-form_components.form-label>
                         <span class="text-pacific_cyan text-xs ml-8"> You can change the team associated with your new roster. </span>
 
@@ -22,13 +22,13 @@
                         </div>
                     </x-form_components.form-field>
 
-                    <x-form_components.form-field class="border bg-gray-500 rounded-2xl border-orange_fruit p-4">
+                    <x-form_components.form-field class="border bg-white rounded-2xl border-orange_fruit p-4 dark:bg-rich_black dark:text-white">
                         <x-form_components.form-label for="season">Season of The Team</x-form_components.form-label>
                         <span class="text-pacific_cyan text-xs ml-8"> This is your current season. </span>
                         <x-form_components.form-input name="season" id="season" value="{{$seasons->season_string}}" readonly />
                     </x-form_components.form-field>
 
-                    <x-form_components.form-field class="border bg-gray-500 rounded-2xl border-orange_fruit p-4">
+                    <x-form_components.form-field class="border bg-white rounded-2xl border-orange_fruit p-4 dark:bg-rich_black dark:text-white">
                         <x-form_components.form-label for="age_squad">Age Squad</x-form_components.form-label>
                         <span class="text-pacific_cyan text-xs ml-8"> Your players are under... </span>
 
@@ -64,7 +64,7 @@
                         </div>
                     </x-form_components.form-field>
 
-                    <x-form_components.form-field class="border bg-gray-500 rounded-2xl border-orange_fruit p-4">
+                    <x-form_components.form-field class="border bg-white rounded-2xl border-orange_fruit p-4 dark:bg-rich_black dark:text-white">
                         <x-form_components.form-label for="gender">Gender</x-form_components.form-label>
                         <span class="text-pacific_cyan text-xs ml-8"> Gender of your team </span>
 

@@ -9,12 +9,12 @@
         <x-success-message>{{ session('success') }}</x-success-message>
     @endif
     <div class="py-12">
-        <section class="p-6 dark:bg-rich_black dark:text-gray-900">
+        <section class="p-6 bg-white text-rich_black font-extrabold dark:bg-rich_black dark:text-white">
             <form method="POST" action="{{ route('practice.patch' ,["practice" => $practices->id]) }}">
                 @method('PATCH')
                 @csrf
                 <input type="hidden" name="roster_id" value="{{$rosters->id}}">
-                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-400">
+                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-white text-rich_black dark:bg-rich_black dark:text-white">
                     <div class="space-y-2 col-span-full lg:col-span-1">
                         <p class="font-medium">Practice Info (TU)</p>
                         <p class="text-xs italic">Edit this step of the process.</p>
@@ -42,8 +42,9 @@
                         </div>
                     </div>
                 </fieldset>
+                <hr class="rounded h-0.5 bg-gray-500 dark:border-orange_fruit font-extrabold">
                 <div id="app" class="mt-6">
-                    <div class=" bg-gray-300 rounded space-y-2 col-span-full lg:col-span-1">
+                    <div class="  border-2 rounded-md border-gray-500 space-y-2 col-span-full lg:col-span-1 bg-gray-300 text-rich_black dark:bg-rich_black dark:text-white dark:border-orange_fruit">
                         <p class="font-medium ml-2">Drills</p>
                         <p class="text-xs italic ml-2 mb-2">Add drills to this practice.</p>
                     </div>

@@ -13,7 +13,7 @@
             <form method="POST" action="{{ route('games.patch', ['game' => $game]) }}">
                 @method('PATCH')
                 @csrf
-                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-400">
+                <fieldset class="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-rich_black dark:text-white">
                     <div class="space-y-2 col-span-full lg:col-span-1">
                         <p class="font-medium">Game Info</p>
                         <p class="text-xs italic">Edit this step of the process.</p>
