@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl font-extrabold text-rich_black dark:text-orange_fruit leading-tight">
             {{ __('Season') }} - Choose Season
         </h2>
     </x-slot>

@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Foundation\Vite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
@@ -155,12 +156,12 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
 
-//        $players= Player::where('roster_id',$roster->id)->get();
-//        $players->each->delete();
-//        $roster->delete();
-//
-//
-//        return redirect('/roster/' . $roster->id)->withSuccess('Roster deleted successfully!');
+        //eliminar plano de jogo (tabela game_player)
+        $players_plan=DB::table('game_player')->where('game_id', '=', $game->id)->delete();
+        $game->delete();
+
+
+        return redirect(route('games.index', ['roster' => $game->roster_id]))->withSuccess('Game deleted successfully!');
     }
 
 

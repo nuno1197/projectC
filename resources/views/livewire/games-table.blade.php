@@ -63,7 +63,26 @@
                 <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">{{ $game->local }}</td>
                 <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">{{ \Carbon\Carbon::parse($game->start_date)->format('Y-m-d H:i')  }}</td>
                 <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">{{ getStateGame($game->id) ? 'Yes' : 'No' }}</td>
-                <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">@if($game->off_keys || $game->def_keys || $game->notes)<x-button class="bg-green-700 hover:bg-green-950" href="{{route('games.indexplangame' , ['game' => $game])}}" > <i class="fa-solid fa-check"></i> Plan Game</x-button>@else<x-button class="bg-green-700 hover:bg-green-950" href="{{route('games.indexplangame' , ['game' => $game])}}" >Plan Game</x-button>@endif <x-button href="{{ route('games.edit',['roster' => $game->roster_id , 'game' => $game->id]) }}">Edit</x-button> <x-button href="#" class="bg-red-700 hover:bg-red-950 text-white">Delete</x-button> </td>
+                <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm flex items-center space-x-2">
+                    @if($game->off_keys || $game->def_keys || $game->notes)
+                        <x-button class="bg-green-700 hover:bg-green-950" href="{{route('games.indexplangame' , ['game' => $game])}}">
+                            <i class="fa-solid fa-check"></i> Plan Game
+                        </x-button>
+                    @else
+                        <x-button class="bg-green-700 hover:bg-green-950" href="{{route('games.indexplangame' , ['game' => $game])}}">
+                            Plan Game
+                        </x-button>
+                    @endif
+                    <x-button href="{{ route('games.edit',['roster' => $game->roster_id , 'game' => $game->id]) }}">Edit</x-button>
+                    <form method="POST" action="{{route('games.delete' , ['game' => $game])}}">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" onclick="return confirm('All plan and game will be deleted, are you sure?');" class="relative inline-flex items-center px-4 py-2 text-sm font-medium border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 bg-red-700 hover:bg-red-950 text-white">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+
             </tr>
         @empty
             <tr>

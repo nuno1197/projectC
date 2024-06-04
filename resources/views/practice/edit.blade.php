@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{$rosters->roster_name}} {{$rosters->age_squad}} - {{ __('Edit Practice Nr ') }} {{$practices->pratice_number}} <span class="text-flax font-bold">{{$practices->start_time}}</span>
+            {{$rosters->roster_name}} {{$rosters->age_squad}} - {{ __('Edit Practice Nr ') }} {{$practice->pratice_number}} <span class="text-flax font-bold">{{$practice->start_time}}</span>
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
     @endif
     <div class="py-12">
         <section class="p-6 bg-white text-rich_black font-extrabold dark:bg-rich_black dark:text-white">
-            <form method="POST" action="{{ route('practice.patch' ,["practice" => $practices->id]) }}">
+            <form method="POST" action="{{ route('practice.patch' ,["practice" => $practice->id]) }}">
                 @method('PATCH')
                 @csrf
                 <input type="hidden" name="roster_id" value="{{$rosters->id}}">
@@ -22,23 +22,23 @@
                     <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                         <div class="col-span-full sm:col-span-3">
                             <label for="pratice_number" class="text-sm">Practice Number</label>
-                            <input id="pratice_number" value="{{$practices->pratice_number}}" type="number" placeholder="1" name="pratice_number" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
+                            <input id="pratice_number" value="{{$practice->practice_number}}" type="number" placeholder="1" name="pratice_number" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
                         </div>
                         <div class="col-span-full sm:col-span-3">
                             <label for="pratice_location" class="text-sm">Practice Location</label>
-                            <input id="pratice_location" type="text" value="{{$practices->pratice_location}}" placeholder="Staples Center" name="pratice_location" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
+                            <input id="pratice_location" type="text" value="{{$practice->practice_location}}" placeholder="Staples Center" name="pratice_location" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
                         </div>
                         <div class="col-span-full sm:col-span-3">
                             <label for="start_time" class="text-sm">Start Practice Time</label>
-                            <input id="start_time" type="datetime-local" value="{{$practices->start_time}}" name="start_time" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
+                            <input id="start_time" type="datetime-local" value="{{$practice->start_time}}" name="start_time" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
                         </div>
                         <div class="col-span-full sm:col-span-3">
                             <label for="end_time" class="text-sm">End Practice Time</label>
-                            <input id="end_time" type="datetime-local" value="{{$practices->end_time}}" name="end_time" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
+                            <input id="end_time" type="datetime-local" value="{{$practice->end_time}}" name="end_time" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">
                         </div>
                         <div class="col-span-full">
                             <label for="comments" class="text-sm">Comments</label>
-                            <textarea id="comments" type="text" placeholder="Some comments about this UT." name="comments" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">{{$practices->comments}}</textarea>
+                            <textarea id="comments" type="text" placeholder="Some comments about this UT." name="comments" class="w-full rounded-md focus:ring focus:ring-opacity-75 dark:text-rich_black focus:dark:ring-orange-800 dark:border-orange_fruit">{{$practice->comments}}</textarea>
                         </div>
                     </div>
                 </fieldset>

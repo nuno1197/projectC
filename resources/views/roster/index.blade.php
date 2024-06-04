@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Roster Menu') }} - Season <span class="text-flax font-bold">{{$seasons->season_string}} </span>
+            {{ __('Roster Menu') }} - Season <span class="text-orange_fruit dark:text-flax font-bold">{{$seasons->season_string}} </span>
         </h2>
     </x-slot>
 

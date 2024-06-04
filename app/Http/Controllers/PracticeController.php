@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Validator;
 class PracticeController extends Controller
 {
 
+    public function index(Roster $roster){
+
+        $practices= Practice::where('roster_id' , $roster->id)->get();
+
+
+        return view('practice.index', ['roster' => $roster]);
+
+    }
+
     /**
      * Create a Practice View
      */
@@ -18,7 +27,7 @@ class PracticeController extends Controller
 
         $rosters = Roster::find($roster_id);
 
-        return view('practices.create',compact('rosters'));
+        return view('practice.create',compact('rosters'));
     }
 
     /**
@@ -53,8 +62,8 @@ class PracticeController extends Controller
 
         $rosters=Roster::find($practice->roster_id);
 
-        return view('practices.edit',[
-            'practices' => $practice,
+        return view('practice.edit',[
+            'practice' => $practice,
             'rosters' => $rosters
         ]);
 

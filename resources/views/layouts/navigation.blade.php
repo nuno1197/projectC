@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-[#f7efd2] dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-white text-rich_black font-extrabold dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -11,17 +11,17 @@
                 </div>
 
                 <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex text-rich_black font-extrabold dark:text-white ">
                         <x-nav-link :href="route('landing')" :active="request()->routeIs('landing')">
                             {{ __('Seasons') }}
                         </x-nav-link>
-
                     </div>
+
             </div>
 
             <!-- Code block ends -->
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6 ml-15">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 ml-15 ">
 
                 @auth
                     <!-- Code block starts -->
@@ -32,7 +32,7 @@
 
                     <!-- Add this button right here -->
                     <button id="theme-toggle" type="button"
-                            class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-2 ml-2">
+                            class="text-rich_black font-extrabold dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-2 ml-2">
                         <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -47,7 +47,7 @@
                 <x-dropdown align="right" width="48">
 
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-rich_black font-extrabold dark:text-white bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div>Coach, {{ Auth::user()->name }}</div>
 
                             <div class="ms-1">

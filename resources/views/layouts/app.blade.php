@@ -20,7 +20,7 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-[#f7efd2] border-orange_fruit dark:bg-gray-800 shadow dark:border-pacific_cyan">
+                <header class="bg-[#f7efd2] border-orange_fruit font-extrabold dark:bg-gray-800 dark:text-white shadow dark:border-pacific_cyan">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                         {{ $header }}
                     </div>

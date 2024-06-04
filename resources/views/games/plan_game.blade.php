@@ -2,7 +2,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{$roster->roster_name}} {{$roster->age_squad}} - {{ __('Plan Game ') }} vs {{$game->opp_name}} at <span class="text-flax font-bold">{{\Carbon\Carbon::parse($game->start_date)->format('Y-m-d H:i')  }}</span>
+            {{$roster->roster_name}} {{$roster->age_squad}} - {{ __('Plan Game ') }} vs {{$game->opp_name}} at <span class="text-orange_fruit dark:text-flax font-bold">{{\Carbon\Carbon::parse($game->start_date)->format('Y-m-d H:i')  }}</span>
         </h2>
     </x-slot>
 
@@ -54,7 +54,7 @@
                                     <h2 class="text-xl font-semibold mb-2">Selected Players</h2>
                                     <ul id="selectedPlayers" class="space-y-2 min-h-[56px]">
                                         @foreach($selected_players as $player)
-                                            <li data-id="{{ $player->id}}" class="p-2 bg-flax border-2 border-orange_fruit rounded cursor-all-scroll">
+                                            <li data-id="{{ $player->id}}" class="p-2 bg-white border-2 border-orange_fruit rounded cursor-all-scroll dark:bg-rich_black dark:text-white">
                                                 <span class="font-bold text-pacific_cyan">{{ $player->position }}</span> <span class="font-bold">{{ $player->name }}</span>  <span class="font-bold text-orange_fruit">#{{ $player->jersey_number}}</span>
                                             </li>
                                         @endforeach

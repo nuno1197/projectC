@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Games ') }} - <span class="text-orange_fruit font-extrabold">{{$roster->roster_name}} {{$roster->age_squad}} {{getSeasonString($roster->season_id)}}</span>
+            {{ __('Games ') }} - <span class="text-text-orange_fruit dark:text-flax font-extrabold">{{$roster->roster_name}} {{$roster->age_squad}} {{getSeasonString($roster->season_id)}}</span>
         </h2>
     </x-slot>
 

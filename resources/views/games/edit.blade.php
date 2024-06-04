@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{$roster->roster_name}} {{$roster->age_squad}} - {{ __('Edit Game ') }} vs {{$game->opp_name}} at <span class="text-flax font-bold">{{\Carbon\Carbon::parse($game->start_date)->format('Y-m-d H:i')  }}</span>
+            {{$roster->roster_name}} {{$roster->age_squad}} - {{ __('Edit Game ') }} vs {{$game->opp_name}} at <span class="text-orange_fruit dark:text-flax font-bold">{{\Carbon\Carbon::parse($game->start_date)->format('Y-m-d H:i')  }}</span>
         </h2>
     </x-slot>
 
