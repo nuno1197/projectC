@@ -18,13 +18,9 @@ class Player extends Model
         return $this->belongsTo(Roster::class);
     }
 
-    public function games(): BelongsToMany
+    public function games()
     {
-        return $this->belongsToMany(Game::class);
+        return $this->belongsToMany(Game::class, 'game_player');
     }
 
-    public function gameplan(): BelongsTo
-    {
-        return $this->belongsTo(gameplan::class);
-    }
 }

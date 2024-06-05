@@ -24,9 +24,9 @@ class Game extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function players(): BelongsToMany
+    public function players()
     {
-        return $this->belongsToMany(Player::class);
+        return $this->belongsToMany(Player::class, 'game_player');
     }
 
     public static function remove_players_game($gameID,$player_id)

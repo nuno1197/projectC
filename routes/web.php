@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DrillController;
 use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
@@ -56,6 +57,8 @@ Route::get('/planning/practice/{roster}/create', [PracticeController::class, 'cr
 Route::post('/practice', [PracticeController::class, 'store'])->name('practice.store')->middleware(['auth', 'verified']);
 Route::get('/planning/practice/{practice}/edit', [PracticeController::class, 'edit'])->name('practice.edit')->middleware('auth');
 Route::patch('/practice/{practice}', [PracticeController::class, 'update'])->name('practice.patch')->middleware('auth');
+Route::get('/practice/planpractice/{practice}', [PracticeController::class, 'indexPracticePlan'])->name('practice.indexpracticeplan')->middleware(['auth', 'verified']);
+Route::post('/drill', [DrillController::class, 'store'])->name('drill.store')->middleware(['auth', 'verified']);
 
 Route::get('/planning/games/{roster}', [GameController::class, 'index'])->name('games.index')->middleware(['auth', 'verified']);
 Route::get('/planning/games/{roster}/create', [GameController::class, 'create'])->name('games.create')->middleware(['auth', 'verified']);
@@ -70,4 +73,5 @@ Route::get('/plangame/generatePDF/{game}', [GameController::class, 'createPDF'])
 Route::get('/planning/menu/{roster}', [PlanningController::class, 'index'])->name('planning.index')->middleware(['auth', 'verified']);
 Route::get('/planning/events/{roster}', [PlanningController::class, 'events'])->name('planning.events')->middleware(['auth', 'verified']);
 
+Route::get('/drill/menu', [DrillController::class, 'drillMenu'])->name('drill.menu')->middleware(['auth', 'verified']);
 require __DIR__.'/auth.php';

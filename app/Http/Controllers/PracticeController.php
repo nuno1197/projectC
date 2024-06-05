@@ -20,6 +20,17 @@ class PracticeController extends Controller
 
     }
 
+    public function indexPracticePlan(Practice $practice){
+
+
+        $roster=Roster::find($practice->roster_id);
+        return view('practice.practice-plan', ['rosters' => $roster , 'practice' => $practice]);
+
+    }
+
+
+
+
     /**
      * Create a Practice View
      */

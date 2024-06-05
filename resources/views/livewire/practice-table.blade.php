@@ -58,7 +58,7 @@
                 <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">{{ $practice->practice_location }}</td>
                 <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">{{ \Carbon\Carbon::parse($practice->start_time)->format('Y-m-d H:i')  }}</td>
                 <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm">{{ getStatePractice($practice->id) ? 'Yes' : 'No' }}</td>
-                <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm"><x-button class="bg-green-700 hover:bg-green-950" href="#" >Plan Practice</x-button><x-button href="{{ route('practice.edit',['practice' => $practice]) }}">Edit</x-button> <x-button href="#" class="bg-red-700 hover:bg-red-950 text-white">Delete</x-button> </td>
+                <td class="px-5 py-5 border-b border-gray-700 bg-gray-800 text-sm"><x-button class="bg-green-700 hover:bg-green-950" href="{{route('practice.indexpracticeplan' , ['practice' => $practice])}}" >Plan Practice</x-button><x-button href="{{ route('practice.edit',['practice' => $practice]) }}">Edit</x-button> <x-button href="#" class="bg-red-700 hover:bg-red-950 text-white">Delete</x-button> </td>
             </tr>
         @empty
             <tr>

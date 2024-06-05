@@ -20,4 +20,9 @@ class Practice extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function drills()
+    {
+        return $this->belongsToMany(Drill::class, 'drill_practice');
+    }
 }
