@@ -32,10 +32,12 @@
     @if (session('success'))
         <x-success-message>{{ session('success') }}</x-success-message>
     @endif
-
-    <div>
-        @livewire('practice-table', ['roster' => $roster])
+    <div id="app">
+        <practice-table :initial-practices="{{ $practice->toJson() }}" initial-links="{{ json_encode($practice->links('pagination::bootstrap-4')->render()) }}"></practice-table>
     </div>
+{{--    <div>--}}
+{{--        @livewire('practice-table', ['roster' => $roster])--}}
+{{--    </div>--}}
 
     <script type="module" src="{{ mix('js/app.js') }}"></script>
 </x-app-layout>

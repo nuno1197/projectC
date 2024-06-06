@@ -13,10 +13,10 @@ class PracticeController extends Controller
 
     public function index(Roster $roster){
 
-        $practices= Practice::where('roster_id' , $roster->id)->get();
+        $practices= Practice::where('roster_id' , $roster->id)->paginate(10);
 
 
-        return view('practice.index', ['roster' => $roster]);
+        return view('practice.index', ['roster' => $roster, 'practice' => $practices]);
 
     }
 
