@@ -87,7 +87,7 @@ class GameController extends Controller
             'roster_id' => request('roster_id'),
         ]);
 
-        return redirect(url()->previous())->withSuccess('Game added successfully!');
+        return redirect(route('games.index' , ['roster' => $game->roster_id]))->withSuccess('Game Created successfully!');
     }
 
     /**

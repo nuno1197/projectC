@@ -34,44 +34,66 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/landing', [SeasonsController::class, 'index'])->name('landing')->middleware(['auth', 'verified']);
 
-Route::get('/roster/{season}', [RosterController::class, 'index'])->name('roster.index')->middleware(['auth', 'verified']);
-Route::get('/roster/roster-menu/{roster}', [RosterController::class, 'indexRoster'])->name('roster.indexRoster')->middleware(['auth', 'verified']);
-Route::get('/roster/{season}/create', [RosterController::class, 'create'])->name('roster.create')->middleware(['auth', 'verified']);
-Route::post('/roster', [RosterController::class, 'store'])->name('roster.store')->middleware('auth');
-Route::get('/roster/{season}/edit/{roster}', [RosterController::class, 'edit'])->name('roster.edit')->middleware('auth');
-Route::patch('/roster/{roster}', [RosterController::class, 'update'])->name('roster.patch')->middleware('auth');
-Route::delete('/roster/{roster}', [RosterController::class, 'destroy'])->name('roster.delete')->middleware('auth');
+Route::prefix('roster')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/{season}', [RosterController::class, 'index'])->name('roster.index');
+    Route::get('/roster-menu/{roster}', [RosterController::class, 'indexRoster'])->name('roster.indexRoster');
+    Route::get('/{season}/create', [RosterController::class, 'create'])->name('roster.create');
+    Route::post('/', [RosterController::class, 'store'])->name('roster.store')->withoutMiddleware(['verified']);
+    Route::get('/{season}/edit/{roster}', [RosterController::class, 'edit'])->name('roster.edit');
+    Route::patch('/{roster}', [RosterController::class, 'update'])->name('roster.patch');
+    Route::delete('/{roster}', [RosterController::class, 'destroy'])->name('roster.delete');
+});
 
 
-Route::get('/players/{roster}', [PlayerController::class, 'index'])->name('players.index')->middleware(['auth', 'verified']);
-Route::get('/players/{roster}/create', [PlayerController::class, 'create'])->name('players.create')->middleware(['auth', 'verified']);
-Route::post('/players', [PlayerController::class, 'store'])->name('players.store')->middleware(['auth', 'verified']);
-Route::get('/players/edit/{players}', [PlayerController::class, 'edit'])->name('players.edit')->middleware('auth');
-Route::patch('/players/{players}', [PlayerController::class, 'update'])->name('players.patch')->middleware('auth');
-Route::delete('/players/{players}', [PlayerController::class, 'destroy'])->name('players.delete')->middleware('auth');
+Route::prefix('players')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/{roster}', [PlayerController::class, 'index'])->name('players.index');
+    Route::get('/{roster}/create', [PlayerController::class, 'create'])->name('players.create');
+    Route::post('/', [PlayerController::class, 'store'])->name('players.store');
+    Route::get('/edit/{players}', [PlayerController::class, 'edit'])->name('players.edit')->withoutMiddleware(['verified']);
+    Route::patch('/{players}', [PlayerController::class, 'update'])->name('players.patch')->withoutMiddleware(['verified']);
+    Route::delete('/{players}', [PlayerController::class, 'destroy'])->name('players.delete')->withoutMiddleware(['verified']);
+});
 
 
 
-Route::get('/planning/practice/{roster}', [PracticeController::class, 'index'])->name('practice.index')->middleware(['auth', 'verified']);
-Route::get('/planning/practice/{roster}/create', [PracticeController::class, 'create'])->name('practice.create')->middleware(['auth', 'verified']);
-Route::post('/practice', [PracticeController::class, 'store'])->name('practice.store')->middleware(['auth', 'verified']);
-Route::get('/planning/practice/{practice}/edit', [PracticeController::class, 'edit'])->name('practice.edit')->middleware('auth');
-Route::patch('/practice/{practice}', [PracticeController::class, 'update'])->name('practice.patch')->middleware('auth');
-Route::get('/practice/planpractice/{practice}', [PracticeController::class, 'indexPracticePlan'])->name('practice.indexpracticeplan')->middleware(['auth', 'verified']);
-Route::post('/drill', [DrillController::class, 'store'])->name('drill.store')->middleware(['auth', 'verified']);
+Route::prefix('planning/practice')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/{roster}', [PracticeController::class, 'index'])->name('practice.index');
+    Route::get('/{roster}/create', [PracticeController::class, 'create'])->name('practice.create');
+    Route::post('/', [PracticeController::class, 'store'])->name('practice.store');
+    Route::get('/{practice}/edit', [PracticeController::class, 'edit'])->name('practice.edit')->withoutMiddleware(['verified']);
+    Route::patch('/{practice}', [PracticeController::class, 'update'])->name('practice.patch')->withoutMiddleware(['verified']);
+    //plan pratice -> INDEX PRACTICE BOTAO
+    Route::get('/planpractice/{practice}', [PracticeController::class, 'indexPracticePlan'])->name('practice.indexpracticeplan');
+});
+//Route::post('/drill', [DrillController::class, 'store'])->name('drill.store')->middleware(['auth', 'verified']);
 
-Route::get('/planning/games/{roster}', [GameController::class, 'index'])->name('games.index')->middleware(['auth', 'verified']);
-Route::get('/planning/games/{roster}/create', [GameController::class, 'create'])->name('games.create')->middleware(['auth', 'verified']);
-Route::get('/planning/games/{roster}/edit/{game}', [GameController::class, 'edit'])->name('games.edit')->middleware(['auth', 'verified']);
-Route::post('/game', [GameController::class, 'store'])->name('games.store')->middleware(['auth', 'verified']);
-Route::patch('/games/{game}', [GameController::class, 'update'])->name('games.patch')->middleware('auth');
-Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.delete')->middleware('auth');
-Route::get('/game/plangame/{game}', [GameController::class, 'indexGameplan'])->name('games.indexplangame')->middleware(['auth', 'verified']);
-Route::patch('/plangame/{game}', [GameController::class, 'updateGamePlan'])->name('games.updategameplan')->middleware(['auth', 'verified']);
-Route::get('/plangame/generatePDF/{game}', [GameController::class, 'createPDF'])->name('games.game_plan_pdf')->middleware(['auth', 'verified']);
+Route::prefix('planning/games')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/{roster}', [GameController::class, 'index'])->name('games.index');
+    Route::get('/{roster}/create', [GameController::class, 'create'])->name('games.create');
+    Route::get('/{roster}/edit/{game}', [GameController::class, 'edit'])->name('games.edit');
+    Route::post('/', [GameController::class, 'store'])->name('games.store');
+    Route::patch('/{game}', [GameController::class, 'update'])->name('games.patch')->withoutMiddleware(['verified']);
+    Route::delete('/{game}', [GameController::class, 'destroy'])->name('games.delete')->withoutMiddleware(['verified']);
+});
+
+Route::prefix('plangame')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/{game}', [GameController::class, 'indexGameplan'])->name('games.indexplangame');
+    Route::patch('/{game}', [GameController::class, 'updateGamePlan'])->name('games.updategameplan');
+    Route::get('/generatePDF/{game}', [GameController::class, 'createPDF'])->name('games.game_plan_pdf');
+});
 
 Route::get('/planning/menu/{roster}', [PlanningController::class, 'index'])->name('planning.index')->middleware(['auth', 'verified']);
 Route::get('/planning/events/{roster}', [PlanningController::class, 'events'])->name('planning.events')->middleware(['auth', 'verified']);
 
-Route::get('/drill/menu', [DrillController::class, 'drillMenu'])->name('drill.menu')->middleware(['auth', 'verified']);
+Route::prefix('drill')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/menu', [DrillController::class, 'drillMenu'])->name('drill.menu')->middleware(['auth', 'verified']);
+    Route::get('/mydrills', [DrillController::class, 'index'])->name('drill.index')->middleware(['auth', 'verified']);
+    Route::get('/mydrills/create', [DrillController::class, 'create'])->name('drill.create')->middleware(['auth', 'verified']);
+});
+
+Route::get('/aux', function (){
+
+    return view('home');
+});
+
 require __DIR__.'/auth.php';

@@ -96,7 +96,7 @@ class PracticeController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-        return redirect('/events/' . $request->roster_id)->withSuccess('Practice updated successfully!');
+        return redirect(route('planning.events', ['roster' => request('roster_id')]))->withSuccess('Practice Updated successfully!');
 
     }
 }

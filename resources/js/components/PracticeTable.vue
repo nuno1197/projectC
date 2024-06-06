@@ -44,10 +44,10 @@
                 <td class="px-4 py-4">{{ new Date(practice.start_time).toLocaleString() }}</td>
                 <td class="px-4 py-4">{{ isFinished(practice.end_time) ? 'Yes' : 'No' }}</td>
                 <td class="px-4 py-4 flex space-x-2">
-                    <a :href="'/practice/plan/' + practice.id" class="px-3 py-1 border rounded bg-emerald-950 text-white hover:bg-green-600">
+                    <a :href="'/planning/practice/planpractice/' + practice.id" class="px-3 py-1 border rounded bg-emerald-950 text-white hover:bg-green-600">
                         Plan Practice
                     </a>
-                    <a :href="'/practices/edit/' + practice.id" class="px-3 py-1 border rounded bg-pacific_cyan text-rich_black hover:bg-blue-800">
+                    <a :href="'/planning/practice/'+ practice.id+'/edit' " class="px-3 py-1 border rounded bg-pacific_cyan text-rich_black hover:bg-blue-800">
                         Edit
                     </a>
                     <button @click="deletePractice(practice.id)" class="px-3 py-1 border rounded bg-red-500 text-white hover:bg-red-600">

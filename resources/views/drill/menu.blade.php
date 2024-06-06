@@ -18,8 +18,8 @@
     <!--Aqui-->
     <div class="flex justify-center ">
         <div class="grid grid-cols-2 gap-8 w-3/6">
-            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/drills_library.jpg')}}" imgClass="w-full h-full" spanClass="text-flax text-4xl font-extrabold">Drills Library</x-menu.menu-button>
-            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/drill_basket.jpg')}}" imgClass="w-full h-full" spanClass="text-flax text-4xl font-extrabold">My Drills</x-menu.menu-button>
+            <x-menu.menu-button address="#" imgsrc="{{Vite::asset('/resources/images/buttons/drills_menu.jpg')}}" imgClass="w-full h-full" spanClass="text-flax text-4xl font-extrabold">Drills Library</x-menu.menu-button>
+            <x-menu.menu-button address="{{route('drill.index')}}" imgsrc="{{Vite::asset('/resources/images/buttons/drill_basket.jpg')}}" imgClass="w-full h-full" spanClass="text-flax text-4xl font-extrabold">My Drills</x-menu.menu-button>
         </div>
 
     </div>

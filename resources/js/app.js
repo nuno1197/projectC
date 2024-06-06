@@ -4,6 +4,8 @@ import EventCalendar from './components/EventCalendar.vue';
 import DrillsComponent from './components/DrillsComponent.vue';
 import GameTable from './components/GameTable.vue';
 import PracticeTable from './components/PracticeTable.vue';
+import DrillTable from './components/DrillTable.vue';
+import CourtComponent from './components/CourtComponent.vue';
 
 
 import Alpine from 'alpinejs';
@@ -18,6 +20,8 @@ app.component('event-calendar', EventCalendar);
 app.component('drills-component', DrillsComponent);
 app.component('game-table', GameTable);
 app.component('practice-table', PracticeTable);
+app.component('drill-table', DrillTable);
+app.component('court-component', CourtComponent);
 app.mount('#app');
 
 // DARK MODE TOGGLE BUTTON

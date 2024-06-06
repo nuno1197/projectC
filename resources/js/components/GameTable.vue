@@ -71,7 +71,7 @@
                 <td class="px-4 py-4">{{ new Date(game.start_date).toLocaleString() }}</td>
                 <td class="px-4 py-4">{{ isFinished(game.end_date) ? 'Yes' : 'No' }}</td>
                 <td class="px-4 py-4 flex space-x-2">
-                    <a :href="'/game/plangame/' + game.id"
+                    <a :href="'/plangame/' + game.id"
                        class="px-3 py-1 border rounded bg-emerald-950 text-white hover:bg-green-600 flex items-center justify-between">
                         Plan Game
                         <span v-if="game.off_keys || game.def_keys || game.notes" class="ml-1"><i

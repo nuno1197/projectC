@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Drill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DrillController extends Controller
 {
@@ -20,7 +21,11 @@ class DrillController extends Controller
      */
     public function index()
     {
-        //
+        $drills = Drill::where('user_id', Auth::id())->paginate(10); // Paginate with 10 items per page
+
+        return view('drill.index', [
+            'drills' => $drills,
+        ]);
     }
 
     /**
@@ -28,7 +33,7 @@ class DrillController extends Controller
      */
     public function create()
     {
-        //
+        return view('drill.create');
     }
 
     /**

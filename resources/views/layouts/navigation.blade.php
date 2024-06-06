@@ -12,11 +12,11 @@
 
                 <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex text-rich_black font-extrabold dark:text-white ">
-                        <x-nav-link :href="route('landing')" :active="request()->routeIs('landing')">
+                        <x-nav-link :href="route('landing')" :active="request()->is('planning*') || request()->is('roster*') || request()->is('plangame*')">
                             {{ __('My Team') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('drill.menu')" :active="request()->routeIs('drill.menu')">
+                        <x-nav-link :href="route('drill.menu')" :active="request()->routeIs('drill*')">
                             {{ __('Drills') }}
                         </x-nav-link>
                     </div>
