@@ -33,8 +33,12 @@
         <x-success-message>{{ session('success') }}</x-success-message>
     @endif
 
-    <div>
-        @livewire('games-table', ['roster' => $roster])
+{{--    <div>--}}
+{{--        @livewire('games-table', ['roster' => $roster])--}}
+{{--    </div>--}}
+
+    <div id="app">
+        <game-table :initial-games="{{ json_encode($games) }}" :initial-competitions="{{ json_encode($competitions) }}" csrf-token="{{ csrf_token() }}" :initial-links="{{ json_encode($games->links()->render()) }}"></game-table>
     </div>
 
     <script type="module" src="{{ mix('js/app.js') }}"></script>

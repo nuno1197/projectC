@@ -16,10 +16,12 @@ class GameController extends Controller
 
     public function index(Roster $roster){
 
-        $games= Game::where('roster_id' , $roster->id)->get();
+        $games = Game::where('roster_id', $roster->id)->paginate(10);
+
+        $competitions = Game::where('roster_id' , $roster->id)->distinct()->pluck('comp_name');
 
 
-        return view('games.index', ['roster' => $roster]);
+        return view('games.index', ['roster' => $roster, 'games' => $games, 'competitions' => $competitions]);
 
     }
 
@@ -153,15 +155,25 @@ class GameController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Game $game)
+    public function destroy($gameID)
     {
+        $game = Game::find($gameID);
 
-        //eliminar plano de jogo (tabela game_player)
-        $players_plan=DB::table('game_player')->where('game_id', '=', $game->id)->delete();
-        $game->delete();
+        if (!$game) {
+            return response()->json(['message' => 'Game not found'], 404);
+        }
 
+        try {
+            // Eliminar plano de jogo (tabela game_player)
+            $players_plan = DB::table('game_player')->where('game_id', '=', $game->id)->delete();
 
-        return redirect(route('games.index', ['roster' => $game->roster_id]))->withSuccess('Game deleted successfully!');
+            $game->delete();
+
+            return redirect()->route('games.index', ['roster' => $game->roster_id])
+                ->with('success', 'Game deleted successfully!');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed to delete game'], 500);
+        }
     }
 
 

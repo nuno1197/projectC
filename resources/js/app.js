@@ -2,6 +2,9 @@ import './bootstrap';
 import { createApp } from 'vue';
 import EventCalendar from './components/EventCalendar.vue';
 import DrillsComponent from './components/DrillsComponent.vue';
+import GameTable from './components/GameTable.vue';
+import PracticeTable from './components/PracticeTable.vue';
+
 
 import Alpine from 'alpinejs';
 
@@ -13,6 +16,8 @@ Alpine.start();
 const app = createApp({});
 app.component('event-calendar', EventCalendar);
 app.component('drills-component', DrillsComponent);
+app.component('game-table', GameTable);
+app.component('practice-table', PracticeTable);
 app.mount('#app');
 
 // DARK MODE TOGGLE BUTTON

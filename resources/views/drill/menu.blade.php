@@ -7,7 +7,7 @@
 
     <x-slot name="secondHeader">
         <h2 class="font-semibold text-xl text-pacific_cyan dark:text-pacific_cyan leading-tight">
-            <span class="font-extrabold">All the Drill Universe in one place.</span> <span class="text-flax font-extrabold"> <i class="fa-solid fa-infinity"></i></span>
+            <span class="font-extrabold">All the Drill Universe in one place.</span> <span class="text-orange_fruit font-extrabold dark:text-flax font-extrabold"> <i class="fa-solid fa-infinity"></i></span>
         </h2>
         <x-slot name="navlinks">
             <x-nav-link :href="route('drill.menu')" :active="request()->routeIs('drill.menu')">
