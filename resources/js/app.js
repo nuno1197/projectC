@@ -6,8 +6,7 @@ import GameTable from './components/GameTable.vue';
 import PracticeTable from './components/PracticeTable.vue';
 import DrillTable from './components/DrillTable.vue';
 import CourtComponent from './components/CourtComponent.vue';
-
-
+import VueKonva from 'vue-konva'
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
