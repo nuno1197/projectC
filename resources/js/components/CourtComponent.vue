@@ -5,57 +5,56 @@
         </div>
         <div class="w-1/4 bg-gray-200 p-2 flex flex-col items-center">
             <h1 class="text-rich_black text-lg font-bold mb-2">Control Panel</h1>
-            <div class="flex items-center justify-between w-full mb-2 ">
-                <button @click="toggleCourt" class="bg-blue-500 text-white px-1 py-1 rounded text-sm">
+            <div class="flex items-center justify-between w-full mb-1 space-x-1">
+                <button @click="handleButtonClick(toggleCourt)" class="bg-blue-500 text-white px-1 py-1 rounded text-sm">
                     {{ buttonLabel }}
                 </button>
-                <button @click="addBasketball" class="bg-orange-500 text-white px-1 py-1 rounded text-sm">
-                    Basketball
+                <button @click="handleButtonClick(addBasketball)" class="bg-flax text-white px-1 py-1 rounded text-sm relative group">
+                    <img :src="basketballImage" class="w-6 h-6">
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Add Basketball</span>
                 </button>
-                <button @click="enableRemovePlayer" :class="{'border-2 border-red-500': removingPlayer}" class="bg-red-500 text-white px-2 py-1 rounded relative group text-sm">
+                <button @click="handleButtonClick(enableRemovePlayer)" :class="{'border-2 border-pacific_cyan shadow-md': removingPlayer}" class="bg-red-500 text-white px-2 py-1 rounded relative group text-sm">
                     X
-                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Remove Player</span>
-                </button>
-                <button @click="startDrawingArrow" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
-                    Draw Arrow
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Remove Item</span>
                 </button>
             </div>
             <div class="w-full border-t border-gray-400 my-2"></div>
             <h2 class="text-rich_black text-lg font-bold mb-2">Offensive Players</h2>
             <div class="flex flex-col items-center mb-2">
                 <div class="flex items-center mb-1">
-                    <button @click="decreaseNumber" class="bg-gray-500 text-white px-1 py-1 rounded-l text-sm">◀</button>
+                    <button @click="handleButtonClick(decreaseNumber)" class="bg-gray-500 text-white px-1 py-1 rounded-l text-sm">◀</button>
                     <span class="bg-white text-rich_black font-bold px-2 py-1 border text-sm">{{ selectedNumber }}</span>
-                    <button @click="increaseNumber" class="bg-gray-500 text-white px-1 py-1 rounded-r text-sm">▶</button>
+                    <button @click="handleButtonClick(increaseNumber)" class="bg-gray-500 text-white px-1 py-1 rounded-r text-sm">▶</button>
                 </div>
                 <div class="flex items-center mb-2">
-                    <button @click="toggleSelection" :class="{'border-2 border-rich_black': selectedPlayer}" class="bg-white text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
+                    <button @click="handleButtonClick(toggleSelection)" :class="{'border-2 border-rich_black': selectedPlayer}" class="bg-white text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
                         <div class="w-8 h-8 rounded-full bg-rich_black text-white font-bold flex items-center justify-center border-4 border-orange_fruit">
                             {{ selectedNumber }}
                         </div>
                     </button>
                 </div>
-                <button @click="rotatePlayer" class="bg-purple-500 text-white px-2 py-1 rounded text-sm">
-                    Rotate Player
-                </button>
             </div>
             <div class="w-full border-t border-gray-400 my-2"></div>
             <h2 class="text-rich_black text-lg font-bold mb-2">Defensive Players</h2>
             <div class="flex flex-col items-center mb-2">
                 <div class="flex items-center mb-1">
-                    <button @click="decreaseDefensiveNumber" class="bg-gray-500 text-white px-1 py-1 rounded-l text-sm">◀</button>
+                    <button @click="handleButtonClick(decreaseDefensiveNumber)" class="bg-gray-500 text-white px-1 py-1 rounded-l text-sm">◀</button>
                     <span class="bg-white text-rich_black font-bold px-2 py-1 border text-sm">{{ selectedDefensiveNumber }}</span>
-                    <button @click="increaseDefensiveNumber" class="bg-gray-500 text-white px-1 py-1 rounded-r text-sm">▶</button>
+                    <button @click="handleButtonClick(increaseDefensiveNumber)" class="bg-gray-500 text-white px-1 py-1 rounded-r text-sm">▶</button>
                 </div>
                 <div class="flex items-center mb-2">
-                    <button @click="toggleDefensiveSelection" :class="{'border-2 border-rich_black': selectedDefensivePlayer}" class="bg-white text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
+                    <button @click="handleButtonClick(toggleDefensiveSelection)" :class="{'border-2 border-rich_black': selectedDefensivePlayer}" class="bg-white text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
                         <div class="w-8 h-8 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center border-4 border-white">
                             {{ selectedDefensiveNumber }}
                         </div>
                     </button>
                 </div>
-                <button @click="rotateDefensivePlayer" class="bg-purple-500 text-white px-2 py-1 rounded text-sm">
-                    Rotate Defensive Player
+            </div>
+            <div class="w-full border-t border-gray-400 my-2"></div>
+            <h2 class="text-rich_black text-lg font-bold mb-2">Action Lines</h2>
+            <div class="flex flex-col items-center mb-2">
+                <button @click="handleButtonClick(startDrawingArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                    <img :src="solidArrowImage" class="w-20 h-20 rounded-md">
                 </button>
             </div>
         </div>
@@ -86,6 +85,8 @@ export default {
             basketball: null,
             isDrawingArrow: false,
             arrow: null,
+            basketballImage: '/images/buttons/basketball.png',
+            solidArrowImage: '/images/buttons/solid_arrow.png',
         };
     },
     computed: {
@@ -157,6 +158,13 @@ export default {
 
             canvas.renderAll();
         },
+        handleButtonClick(action) {
+            this.isDrawingArrow = false;
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+            action();
+        },
         toggleCourt() {
             this.isFullCourt = !this.isFullCourt;
             this.loadCourtImage();
@@ -195,35 +203,42 @@ export default {
             this.selectedDefensivePlayer = false;
         },
         addBasketball() {
-            const circle = new fabric.Circle({
-                radius: 10,
-                fill: 'orange',
-                stroke: 'black',
-                strokeWidth: 2,
-                originX: 'center',
-                originY: 'center',
-                left: canvas.getWidth() / 2,
-                top: canvas.getHeight() / 2,
+            fabric.Image.fromURL(this.basketballImage, (img) => {
+                img.scaleToWidth(30);
+                img.set({
+                    left: canvas.getWidth() / 2,
+                    top: canvas.getHeight() / 2,
+                    originX: 'center',
+                    originY: 'center',
+                    hasControls: true,
+                    hasBorders: true,
+                });
+                img.on('mousedown', () => this.selectBasketball(img));
+                canvas.add(img);
+                this.basketball = img;
+                canvas.renderAll();
             });
-            circle.on('mousedown', () => this.selectBasketball(circle));
-            canvas.add(circle);
-            this.basketball = circle;
-            canvas.renderAll();
         },
-        selectBasketball(circle) {
+        startDrawingArrow() {
+            this.isDrawingArrow = true;
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+        },
+        selectBasketball(img) {
             if (this.removingPlayer) {
-                canvas.remove(circle);
+                canvas.remove(img);
                 this.basketball = null;
                 canvas.renderAll();
             } else {
-                this.draggingPlayer = circle;
+                this.draggingPlayer = img;
                 if (this.rotatingPlayer) {
                     this.rotatingPlayer.set('shadow', null);
                 }
                 if (this.rotatingDefensivePlayer) {
                     this.rotatingDefensivePlayer.set('shadow', null);
                 }
-                circle.set('shadow', new fabric.Shadow({
+                img.set('shadow', new fabric.Shadow({
                     color: 'rgba(0,0,0,0.5)',
                     blur: 10,
                     offsetX: 5,
@@ -384,12 +399,6 @@ export default {
                 this.rotatingDefensivePlayer.rotate((this.rotatingDefensivePlayer.angle + 45) % 360);
                 canvas.renderAll();
             }
-        },
-        startDrawingArrow() {
-            this.isDrawingArrow = true;
-            this.removingPlayer = false;
-            this.selectedPlayer = false;
-            this.selectedDefensivePlayer = false;
         },
         startArrow(pointer) {
             this.arrow = new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
