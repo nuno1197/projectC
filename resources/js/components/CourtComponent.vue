@@ -56,8 +56,11 @@
                 <button @click="handleButtonClick(startDrawingArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm mr-2">
                     <img :src="solidArrowImage" class="w-20 h-20 rounded-md">
                 </button>
-                <button @click="handleButtonClick(startDrawingDottedArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingDottedArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                <button @click="handleButtonClick(startDrawingDottedArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingDottedArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm mr-2">
                     <img :src="dottedArrowImage" class="w-20 h-20 rounded-md">
+                </button>
+                <button @click="handleButtonClick(startDrawingWavyArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingWavyArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                    <img :src="wavyArrowImage" class="w-20 h-20 rounded-md">
                 </button>
             </div>
         </div>
@@ -68,6 +71,16 @@
 import { fabric } from 'fabric';
 
 let canvas;
+
+// Adicione o código SVG da seta ondulada aqui
+const wavyArrowSVG = `<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" version="1.0">
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1" fill="#000000" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)">
+   <path id="svg_2" d="m4355,4861c-258,-70 -482,-131 -498,-135c-38,-9 -67,-41 -67,-72c0,-21 38,-65 177,-206c141,-142 175,-181 163,-188c-8,-5 -94,-35 -190,-66c-274,-89 -374,-148 -455,-269c-67,-101 -88,-193 -105,-462c-16,-235 -41,-317 -127,-413c-33,-37 -69,-62 -136,-95c-104,-51 -188,-74 -397,-111c-185,-32 -277,-56 -367,-93c-154,-63 -290,-178 -339,-285c-51,-111 -51,-217 1,-381c14,-44 30,-107 35,-141c25,-157 -73,-305 -273,-410c-98,-51 -186,-79 -401,-125c-105,-23 -227,-52 -271,-66c-241,-75 -383,-189 -467,-372c-17,-36 -50,-150 -74,-255c-33,-142 -54,-212 -84,-272c-51,-105 -115,-166 -196,-189c-33,-10 -65,-24 -72,-33c-18,-23 -15,-56 8,-77c44,-40 195,19 275,108c91,100 131,196 185,439c48,220 92,314 183,395c102,89 236,141 529,204c224,48 310,75 421,130c160,79 266,179 324,305c22,48 28,77 31,154c3,87 0,106 -34,220c-47,158 -51,241 -14,315c46,96 167,187 318,242c78,29 109,36 342,78c102,19 221,46 265,60c187,61 313,160 379,298c45,94 62,176 76,387c18,272 44,355 139,444c63,58 129,89 336,155c88,28 182,62 210,76l49,24l162,-159c110,-109 168,-160 183,-160c35,0 59,17 70,52c25,78 271,1002 271,1019c0,28 -36,59 -67,58c-16,0 -239,-58 -498,-128z"/>
+  </g>
+ </g>
+</svg>`;
 
 export default {
     data() {
@@ -88,10 +101,12 @@ export default {
             basketball: null,
             isDrawingArrow: false,
             isDrawingDottedArrow: false,
+            isDrawingWavyArrow: false,
             arrow: null,
             basketballImage: '/images/buttons/basketball.png',
             solidArrowImage: '/images/buttons/solid_arrow.png',
-            dottedArrowImage: '/images/buttons/dotted_arrow.png', // Adicione a imagem da dotted arrow
+            dottedArrowImage: '/images/buttons/dotted_arrow.png',
+            wavyArrowImage: '/images/buttons/wavy_arrow.png', // Adicione a imagem da seta ondulada
         };
     },
     computed: {
@@ -166,6 +181,7 @@ export default {
         handleButtonClick(action) {
             this.isDrawingArrow = false;
             this.isDrawingDottedArrow = false;
+            this.isDrawingWavyArrow = false;
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
@@ -228,6 +244,7 @@ export default {
         startDrawingArrow() {
             this.isDrawingArrow = true;
             this.isDrawingDottedArrow = false;
+            this.isDrawingWavyArrow = false;
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
@@ -235,6 +252,15 @@ export default {
         startDrawingDottedArrow() {
             this.isDrawingDottedArrow = true;
             this.isDrawingArrow = false;
+            this.isDrawingWavyArrow = false;
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+        },
+        startDrawingWavyArrow() {
+            this.isDrawingWavyArrow = true;
+            this.isDrawingArrow = false;
+            this.isDrawingDottedArrow = false;
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
@@ -275,6 +301,8 @@ export default {
                 this.startArrow(pointer);
             } else if (this.isDrawingDottedArrow) {
                 this.startDottedArrow(pointer);
+            } else if (this.isDrawingWavyArrow) {
+                this.startWavyArrow(pointer);
             }
         },
         handleMouseMove(options) {
@@ -284,6 +312,9 @@ export default {
             } else if (this.isDrawingDottedArrow && this.arrow) {
                 const pointer = canvas.getPointer(options.e);
                 this.updateDottedArrow(pointer);
+            } else if (this.isDrawingWavyArrow && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
+                this.updateWavyArrow(pointer);
             }
         },
         handleMouseUp() {
@@ -291,6 +322,8 @@ export default {
                 this.finishDrawingArrow();
             } else if (this.isDrawingDottedArrow && this.arrow) {
                 this.finishDrawingDottedArrow();
+            } else if (this.isDrawingWavyArrow && this.arrow) {
+                this.finishDrawingWavyArrow();
             }
         },
         placePlayer(pointer) {
@@ -333,7 +366,6 @@ export default {
             if (this.selectedDefensivePlayer && !this.draggingPlayer) {
                 const svgStringTemplate = `
             <svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
-
              <g>
               <title>Layer 1</title>
               <ellipse stroke-width="5" transform="rotate(0.939269, 241.25, 237)" ry="46.89259" rx="47.85158" id="svg_1" cy="236.99996" cx="241.25003" stroke="#bf0000" fill="#7f0000"/>
@@ -417,6 +449,22 @@ export default {
             });
             canvas.add(this.arrow);
         },
+        startWavyArrow(pointer) {
+            fabric.loadSVGFromString(wavyArrowSVG, (objects, options) => {
+                const group = fabric.util.groupSVGElements(objects || [], options || {});
+                group.set({
+                    left: pointer.x,
+                    top: pointer.y,
+                    hasControls: true,
+                    hasBorders: true,
+                    selectable: true,
+                });
+
+                group.on('mousedown', () => this.selectArrow(group));
+                canvas.add(group);
+                this.arrow = group;
+            });
+        },
         updateArrow(pointer) {
             this.arrow.set({
                 x2: pointer.x,
@@ -428,6 +476,13 @@ export default {
             this.arrow.set({
                 x2: pointer.x,
                 y2: pointer.y,
+            });
+            canvas.renderAll();
+        },
+        updateWavyArrow(pointer) {
+            this.arrow.set({
+                left: pointer.x,
+                top: pointer.y,
             });
             canvas.renderAll();
         },
@@ -493,6 +548,11 @@ export default {
             this.isDrawingDottedArrow = false;
             canvas.renderAll();
         },
+        finishDrawingWavyArrow() {
+            this.arrow = null;
+            this.isDrawingWavyArrow = false;
+            canvas.renderAll();
+        },
         selectArrow(arrowGroup) {
             if (this.removingPlayer) {
                 canvas.remove(arrowGroup);
@@ -505,9 +565,6 @@ export default {
     },
 };
 </script>
-
-
-
 
 <style scoped>
 .bg-gray-200 {
