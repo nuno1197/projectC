@@ -52,9 +52,12 @@
             </div>
             <div class="w-full border-t border-gray-400 my-2"></div>
             <h2 class="text-rich_black text-lg font-bold mb-2">Action Lines</h2>
-            <div class="flex flex-col items-center mb-2">
-                <button @click="handleButtonClick(startDrawingArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+            <div class="flex flex-row items-center mb-2">
+                <button @click="handleButtonClick(startDrawingArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm mr-2">
                     <img :src="solidArrowImage" class="w-20 h-20 rounded-md">
+                </button>
+                <button @click="handleButtonClick(startDrawingDottedArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingDottedArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                    <img :src="dottedArrowImage" class="w-20 h-20 rounded-md">
                 </button>
             </div>
         </div>
@@ -84,9 +87,11 @@ export default {
             rotatingDefensivePlayer: null,
             basketball: null,
             isDrawingArrow: false,
+            isDrawingDottedArrow: false,
             arrow: null,
             basketballImage: '/images/buttons/basketball.png',
             solidArrowImage: '/images/buttons/solid_arrow.png',
+            dottedArrowImage: '/images/buttons/dotted_arrow.png', // Adicione a imagem da dotted arrow
         };
     },
     computed: {
@@ -160,6 +165,7 @@ export default {
         },
         handleButtonClick(action) {
             this.isDrawingArrow = false;
+            this.isDrawingDottedArrow = false;
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
@@ -221,6 +227,14 @@ export default {
         },
         startDrawingArrow() {
             this.isDrawingArrow = true;
+            this.isDrawingDottedArrow = false;
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+        },
+        startDrawingDottedArrow() {
+            this.isDrawingDottedArrow = true;
+            this.isDrawingArrow = false;
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
@@ -259,17 +273,24 @@ export default {
                 this.dropPlayer(pointer);
             } else if (this.isDrawingArrow) {
                 this.startArrow(pointer);
+            } else if (this.isDrawingDottedArrow) {
+                this.startDottedArrow(pointer);
             }
         },
         handleMouseMove(options) {
             if (this.isDrawingArrow && this.arrow) {
                 const pointer = canvas.getPointer(options.e);
                 this.updateArrow(pointer);
+            } else if (this.isDrawingDottedArrow && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
+                this.updateDottedArrow(pointer);
             }
         },
         handleMouseUp() {
             if (this.isDrawingArrow && this.arrow) {
                 this.finishDrawingArrow();
+            } else if (this.isDrawingDottedArrow && this.arrow) {
+                this.finishDrawingDottedArrow();
             }
         },
         placePlayer(pointer) {
@@ -310,55 +331,42 @@ export default {
         },
         placeDefensivePlayer(pointer) {
             if (this.selectedDefensivePlayer && !this.draggingPlayer) {
-                const rect = new fabric.Rect({
-                    width: 30,
-                    height: 30,
-                    fill: 'blue',
-                    stroke: 'white',
-                    strokeWidth: 2,
-                    originX: 'center',
-                    originY: 'center',
-                });
+                const svgStringTemplate = `
+            <svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
 
-                const line1 = new fabric.Line([15, -15, -15, -15], {
-                    stroke: 'white',
-                    strokeWidth: 2,
-                    originX: 'center',
-                    originY: 'center',
-                });
+             <g>
+              <title>Layer 1</title>
+              <ellipse stroke-width="5" transform="rotate(0.939269, 241.25, 237)" ry="46.89259" rx="47.85158" id="svg_1" cy="236.99996" cx="241.25003" stroke="#bf0000" fill="#7f0000"/>
+              <path id="svg_3" d="m72.49996,67.9999" opacity="undefined" stroke="#000" fill="none"/>
+              <path stroke-width="5" id="svg_12" d="m194.99992,235.99985l-104.49997,52.49999" opacity="undefined" stroke="#bf0000" fill="#ff0000"/>
+              <path stroke-width="5" id="svg_13" d="m388.5902,235.72688l-102.18059,56.54599" transform="rotate(-117, 337.5, 264)" opacity="undefined" stroke="#bf0000" fill="none"/>
+              <text transform="matrix(10.3022, 0, 0, 5.60117, -283.955, -197.254)" xml:space="preserve" text-anchor="start" font-family="Noto Sans JP" font-size="10" stroke-width="0" id="svg_14" y="80.61354" x="48.69844" stroke="#000" fill="#e5e5e5">{{number}}</text>
+             </g>
+            </svg>
+            `;
 
-                const line2 = new fabric.Line([-15, 15, 15, 15], {
-                    stroke: 'white',
-                    strokeWidth: 2,
-                    originX: 'center',
-                    originY: 'center',
-                });
+                const svgString = svgStringTemplate.replace('{{number}}', this.selectedDefensiveNumber);
 
-                const text = new fabric.Text(this.selectedDefensiveNumber.toString(), {
-                    fontSize: 20,
-                    fontFamily: 'Arial',
-                    fontWeight: 'bold',
-                    fill: 'white',
-                    originX: 'center',
-                    originY: 'center',
-                    textAlign: 'center',
-                });
+                fabric.loadSVGFromString(svgString, (objects, options) => {
+                    const group = fabric.util.groupSVGElements(objects, options);
+                    group.scaleToWidth(150); // Ajuste o tamanho conforme necessário
+                    group.set({
+                        left: pointer.x,
+                        top: pointer.y,
+                        originX: 'center',
+                        originY: 'center',
+                        hasControls: true,
+                        hasBorders: true,
+                    });
 
-                const group = new fabric.Group([rect, line1, line2, text], {
-                    left: pointer.x,
-                    top: pointer.y,
-                    originX: 'center',
-                    originY: 'center',
-                    hasControls: true,
-                    hasBorders: true,
+                    group.on('mousedown', () => this.selectPlayer(group));
+                    canvas.add(group);
+                    canvas.renderAll();
+                    this.selectedDefensivePlayer = false;
                 });
-
-                group.on('mousedown', () => this.selectPlayer(group));
-                canvas.add(group);
-                canvas.renderAll();
-                this.selectedDefensivePlayer = false;
             }
         },
+
         selectPlayer(group) {
             if (this.removingPlayer) {
                 canvas.remove(group);
@@ -388,18 +396,6 @@ export default {
         dropPlayer(pointer) {
             this.draggingPlayer = null;
         },
-        rotatePlayer() {
-            if (this.rotatingPlayer) {
-                this.rotatingPlayer.rotate((this.rotatingPlayer.angle + 45) % 360);
-                canvas.renderAll();
-            }
-        },
-        rotateDefensivePlayer() {
-            if (this.rotatingDefensivePlayer) {
-                this.rotatingDefensivePlayer.rotate((this.rotatingDefensivePlayer.angle + 45) % 360);
-                canvas.renderAll();
-            }
-        },
         startArrow(pointer) {
             this.arrow = new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
                 fill: 'black',
@@ -410,7 +406,25 @@ export default {
             });
             canvas.add(this.arrow);
         },
+        startDottedArrow(pointer) {
+            this.arrow = new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
+                fill: 'black',
+                stroke: 'black',
+                strokeWidth: 5,
+                strokeDashArray: [5, 5],
+                selectable: false,
+                evented: false,
+            });
+            canvas.add(this.arrow);
+        },
         updateArrow(pointer) {
+            this.arrow.set({
+                x2: pointer.x,
+                y2: pointer.y,
+            });
+            canvas.renderAll();
+        },
+        updateDottedArrow(pointer) {
             this.arrow.set({
                 x2: pointer.x,
                 y2: pointer.y,
@@ -448,6 +462,37 @@ export default {
             this.isDrawingArrow = false;
             canvas.renderAll();
         },
+        finishDrawingDottedArrow() {
+            const pointer = {
+                x: this.arrow.x2,
+                y: this.arrow.y2,
+            };
+
+            const angle = Math.atan2(pointer.y - this.arrow.y1, pointer.x - this.arrow.x1);
+            const arrowHead = new fabric.Triangle({
+                width: 20,
+                height: 20,
+                fill: 'black',
+                left: pointer.x,
+                top: pointer.y,
+                angle: angle * (180 / Math.PI) + 90,
+                originX: 'center',
+                originY: 'center',
+            });
+
+            const arrowGroup = new fabric.Group([this.arrow, arrowHead], {
+                selectable: true,
+                hasControls: true,
+                hasBorders: true,
+            });
+
+            arrowGroup.on('mousedown', () => this.selectArrow(arrowGroup));
+            canvas.remove(this.arrow);
+            canvas.add(arrowGroup);
+            this.arrow = null;
+            this.isDrawingDottedArrow = false;
+            canvas.renderAll();
+        },
         selectArrow(arrowGroup) {
             if (this.removingPlayer) {
                 canvas.remove(arrowGroup);
@@ -460,6 +505,7 @@ export default {
     },
 };
 </script>
+
 
 
 
