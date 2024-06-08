@@ -96,4 +96,9 @@ Route::get('/aux', function (){
     return view('home');
 });
 
+Route::get('/aux2', function (){
+
+    return view('aux');
+});
+
 require __DIR__.'/auth.php';

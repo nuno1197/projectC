@@ -6,7 +6,6 @@ import GameTable from './components/GameTable.vue';
 import PracticeTable from './components/PracticeTable.vue';
 import DrillTable from './components/DrillTable.vue';
 import CourtComponent from './components/CourtComponent.vue';
-import VueKonva from 'vue-konva'
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
@@ -15,6 +14,7 @@ Alpine.start();
 
 
 const app = createApp({});
+
 app.component('event-calendar', EventCalendar);
 app.component('drills-component', DrillsComponent);
 app.component('game-table', GameTable);

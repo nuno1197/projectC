@@ -16,6 +16,9 @@
                     X
                     <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Remove Player</span>
                 </button>
+                <button @click="startDrawingArrow" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                    Draw Arrow
+                </button>
             </div>
             <div class="w-full border-t border-gray-400 my-2"></div>
             <h2 class="text-rich_black text-lg font-bold mb-2">Offensive Players</h2>
@@ -59,9 +62,10 @@
     </div>
 </template>
 
-
 <script>
 import { fabric } from 'fabric';
+
+let canvas;
 
 export default {
     data() {
@@ -73,14 +77,15 @@ export default {
             fullCourtPlayers: [],
             halfCourtPlayers: [],
             draggingPlayer: null,
-            canvas: null,
             courtImage: null,
             rotatingPlayer: null,
             defensivePlayers: [],
             selectedDefensiveNumber: 1,
             selectedDefensivePlayer: false,
             rotatingDefensivePlayer: null,
-            basketball: null, // Adicionado para a bola de basquete
+            basketball: null,
+            isDrawingArrow: false,
+            arrow: null,
         };
     },
     computed: {
@@ -104,17 +109,19 @@ export default {
     methods: {
         initCanvas() {
             const canvasElement = this.$refs.fabricCanvas;
-            this.canvas = new fabric.Canvas(canvasElement);
+            canvas = new fabric.Canvas(canvasElement);
             this.updateCanvasSize();
             window.addEventListener('resize', this.updateCanvasSize);
-            this.canvas.on('mouse:down', this.handleMouseDown);
+            canvas.on('mouse:down', this.handleMouseDown);
+            canvas.on('mouse:move', this.handleMouseMove);
+            canvas.on('mouse:up', this.handleMouseUp);
         },
         updateCanvasSize() {
             const canvasContainer = this.$refs.canvasContainer;
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
-            this.canvas.setWidth(width);
-            this.canvas.setHeight(height);
+            canvas.setWidth(width);
+            canvas.setHeight(height);
             if (this.courtImage) {
                 this.adjustCourtImageSize();
             }
@@ -128,12 +135,12 @@ export default {
                     selectable: false,
                     evented: false,
                 });
-                this.canvas.setBackgroundImage(img, this.adjustCourtImageSize.bind(this));
+                canvas.setBackgroundImage(img, this.adjustCourtImageSize.bind(this));
             });
         },
         adjustCourtImageSize() {
-            const canvasWidth = this.canvas.getWidth();
-            const canvasHeight = this.canvas.getHeight();
+            const canvasWidth = canvas.getWidth();
+            const canvasHeight = canvas.getHeight();
             const imageAspectRatio = this.courtImage.width / this.courtImage.height;
             const canvasAspectRatio = canvasWidth / canvasHeight;
 
@@ -148,7 +155,7 @@ export default {
                 top: (canvasHeight - this.courtImage.getScaledHeight()) / 2,
             });
 
-            this.canvas.renderAll();
+            canvas.renderAll();
         },
         toggleCourt() {
             this.isFullCourt = !this.isFullCourt;
@@ -195,21 +202,19 @@ export default {
                 strokeWidth: 2,
                 originX: 'center',
                 originY: 'center',
-                left: this.canvas.getWidth() / 2,
-                top: this.canvas.getHeight() / 2,
-                hasControls: false,
-                hasBorders: false,
+                left: canvas.getWidth() / 2,
+                top: canvas.getHeight() / 2,
             });
             circle.on('mousedown', () => this.selectBasketball(circle));
-            this.canvas.add(circle);
+            canvas.add(circle);
             this.basketball = circle;
-            this.canvas.renderAll();
+            canvas.renderAll();
         },
         selectBasketball(circle) {
             if (this.removingPlayer) {
-                this.canvas.remove(circle);
+                canvas.remove(circle);
                 this.basketball = null;
-                this.canvas.renderAll();
+                canvas.renderAll();
             } else {
                 this.draggingPlayer = circle;
                 if (this.rotatingPlayer) {
@@ -224,11 +229,11 @@ export default {
                     offsetX: 5,
                     offsetY: 5,
                 }));
-                this.canvas.renderAll();
+                canvas.renderAll();
             }
         },
         handleMouseDown(options) {
-            const pointer = this.canvas.getPointer(options.e);
+            const pointer = canvas.getPointer(options.e);
             if (this.selectedPlayer && !this.draggingPlayer) {
                 this.placePlayer(pointer);
             } else if (this.draggingPlayer) {
@@ -237,6 +242,19 @@ export default {
                 this.placeDefensivePlayer(pointer);
             } else if (this.draggingPlayer) {
                 this.dropPlayer(pointer);
+            } else if (this.isDrawingArrow) {
+                this.startArrow(pointer);
+            }
+        },
+        handleMouseMove(options) {
+            if (this.isDrawingArrow && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
+                this.updateArrow(pointer);
+            }
+        },
+        handleMouseUp() {
+            if (this.isDrawingArrow && this.arrow) {
+                this.finishDrawingArrow();
             }
         },
         placePlayer(pointer) {
@@ -248,10 +266,6 @@ export default {
                     strokeWidth: 2,
                     originX: 'center',
                     originY: 'center',
-                    hasControls: false,
-                    hasBorders: false,
-                    lockMovementX: false,
-                    lockMovementY: false,
                 });
 
                 const text = new fabric.Text(this.selectedNumber.toString(), {
@@ -269,15 +283,13 @@ export default {
                     top: pointer.y,
                     originX: 'center',
                     originY: 'center',
-                    hasControls: false,
-                    hasBorders: false,
-                    lockMovementX: false,
-                    lockMovementY: false,
+                    hasControls: true,
+                    hasBorders: true,
                 });
 
                 group.on('mousedown', () => this.selectPlayer(group));
-                this.canvas.add(group);
-                this.canvas.renderAll();
+                canvas.add(group);
+                canvas.renderAll();
                 this.selectedPlayer = false;
             }
         },
@@ -291,10 +303,6 @@ export default {
                     strokeWidth: 2,
                     originX: 'center',
                     originY: 'center',
-                    hasControls: false,
-                    hasBorders: false,
-                    lockMovementX: false,
-                    lockMovementY: false,
                 });
 
                 const line1 = new fabric.Line([15, -15, -15, -15], {
@@ -326,22 +334,20 @@ export default {
                     top: pointer.y,
                     originX: 'center',
                     originY: 'center',
-                    hasControls: false,
-                    hasBorders: false,
-                    lockMovementX: false,
-                    lockMovementY: false,
+                    hasControls: true,
+                    hasBorders: true,
                 });
 
                 group.on('mousedown', () => this.selectPlayer(group));
-                this.canvas.add(group);
-                this.canvas.renderAll();
+                canvas.add(group);
+                canvas.renderAll();
                 this.selectedDefensivePlayer = false;
             }
         },
         selectPlayer(group) {
             if (this.removingPlayer) {
-                this.canvas.remove(group);
-                this.canvas.renderAll();
+                canvas.remove(group);
+                canvas.renderAll();
             } else {
                 if (this.rotatingPlayer) {
                     this.rotatingPlayer.set('shadow', null);
@@ -361,7 +367,7 @@ export default {
                     offsetX: 5,
                     offsetY: 5,
                 }));
-                this.canvas.renderAll();
+                canvas.renderAll();
             }
         },
         dropPlayer(pointer) {
@@ -370,13 +376,73 @@ export default {
         rotatePlayer() {
             if (this.rotatingPlayer) {
                 this.rotatingPlayer.rotate((this.rotatingPlayer.angle + 45) % 360);
-                this.canvas.renderAll();
+                canvas.renderAll();
             }
         },
         rotateDefensivePlayer() {
             if (this.rotatingDefensivePlayer) {
                 this.rotatingDefensivePlayer.rotate((this.rotatingDefensivePlayer.angle + 45) % 360);
-                this.canvas.renderAll();
+                canvas.renderAll();
+            }
+        },
+        startDrawingArrow() {
+            this.isDrawingArrow = true;
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+        },
+        startArrow(pointer) {
+            this.arrow = new fabric.Line([pointer.x, pointer.y, pointer.x, pointer.y], {
+                fill: 'black',
+                stroke: 'black',
+                strokeWidth: 5,
+                selectable: false,
+                evented: false,
+            });
+            canvas.add(this.arrow);
+        },
+        updateArrow(pointer) {
+            this.arrow.set({
+                x2: pointer.x,
+                y2: pointer.y,
+            });
+            canvas.renderAll();
+        },
+        finishDrawingArrow() {
+            const pointer = {
+                x: this.arrow.x2,
+                y: this.arrow.y2,
+            };
+
+            const angle = Math.atan2(pointer.y - this.arrow.y1, pointer.x - this.arrow.x1);
+            const arrowHead = new fabric.Triangle({
+                width: 20,
+                height: 20,
+                fill: 'black',
+                left: pointer.x,
+                top: pointer.y,
+                angle: angle * (180 / Math.PI) + 90,
+                originX: 'center',
+                originY: 'center',
+            });
+
+            const arrowGroup = new fabric.Group([this.arrow, arrowHead], {
+                selectable: true,
+                hasControls: true,
+                hasBorders: true,
+            });
+
+            arrowGroup.on('mousedown', () => this.selectArrow(arrowGroup));
+            canvas.remove(this.arrow);
+            canvas.add(arrowGroup);
+            this.arrow = null;
+            this.isDrawingArrow = false;
+            canvas.renderAll();
+        },
+        selectArrow(arrowGroup) {
+            if (this.removingPlayer) {
+                canvas.remove(arrowGroup);
+                canvas.renderAll();
             }
         },
     },
