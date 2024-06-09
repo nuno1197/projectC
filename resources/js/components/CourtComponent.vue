@@ -13,6 +13,10 @@
                     <img :src="basketballImage" class="w-6 h-6">
                     <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Add Basketball</span>
                 </button>
+                <button @click="deleteAllElements" class="bg-red-600 text-white px-2 py-1 rounded relative group text-sm">
+                    <i class="fa-solid fa-trash"></i>
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Delete All</span>
+                </button>
                 <button @click="handleButtonClick(enableRemovePlayer)" :class="{'border-2 border-pacific_cyan shadow-md': removingPlayer}" class="bg-red-500 text-white px-2 py-1 rounded relative group text-sm">
                     X
                     <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Remove Item</span>
@@ -27,7 +31,7 @@
                     <button @click="handleButtonClick(increaseNumber)" class="bg-gray-500 text-white px-1 py-1 rounded-r text-sm">▶</button>
                 </div>
                 <div class="flex items-center mb-2">
-                    <button @click="handleButtonClick(toggleSelection)" :class="{'border-2 border-rich_black': selectedPlayer}" class="bg-white text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
+                    <button @click="handleButtonClick(toggleSelection)" :class="{'border-2 border-rich_black': selectedPlayer}" class="bg-white border-2 border-orange_fruit text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
                         <div class="w-8 h-8 rounded-full bg-rich_black text-white font-bold flex items-center justify-center border-4 border-orange_fruit">
                             {{ selectedNumber }}
                         </div>
@@ -43,7 +47,7 @@
                     <button @click="handleButtonClick(increaseDefensiveNumber)" class="bg-gray-500 text-white px-1 py-1 rounded-r text-sm">▶</button>
                 </div>
                 <div class="flex items-center mb-2">
-                    <button @click="handleButtonClick(toggleDefensiveSelection)" :class="{'border-2 border-rich_black': selectedDefensivePlayer}" class="bg-white text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
+                    <button @click="handleButtonClick(toggleDefensiveSelection)" :class="{'border-2 border-rich_black': selectedDefensivePlayer}" class="bg-white border-2 border-orange_fruit text-rich_black px-2 py-1 rounded flex items-center mr-1 text-sm">
                         <div class="w-8 h-8 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center border-4 border-white">
                             {{ selectedDefensiveNumber }}
                         </div>
@@ -53,28 +57,39 @@
             <div class="w-full border-t border-gray-400 my-2"></div>
             <h2 class="text-rich_black text-lg font-bold mb-2">Action Lines</h2>
             <div class="grid grid-cols-2 gap-4 items-center mb-2">
-                <button @click="handleButtonClick(startDrawingArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm mr-2">
+                <button @click="handleButtonClick(startDrawingArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingArrow}" class="bg-white border-2 border-orange_fruit text-white px-1 py-1 rounded text-sm mr-2">
                     <img :src="solidArrowImage" class="w-20 h-20 rounded-md">
                 </button>
-                <button @click="handleButtonClick(startDrawingDottedArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingDottedArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm mr-2">
+                <button @click="handleButtonClick(startDrawingDottedArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingDottedArrow}" class="bg-white border-2 border-orange_fruit text-white px-1 py-1 rounded text-sm mr-2">
                     <img :src="dottedArrowImage" class="w-20 h-20 rounded-md">
                 </button>
-                <button @click="handleButtonClick(startDrawingWavyArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingWavyArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm mr-2">
+                <button @click="handleButtonClick(startDrawingWavyArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingWavyArrow}" class="bg-white border-2 border-orange_fruit text-white px-1 py-1 rounded text-sm mr-2">
                     <img :src="wavyArrowImage" class="w-20 h-20 rounded-md">
                 </button>
-                <button @click="handleButtonClick(startDrawingBlockArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingBlockArrow}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                <button @click="handleButtonClick(startDrawingBlockArrow)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingBlockArrow}" class="bg-white border-2 border-orange_fruit text-white px-1 py-1 rounded text-sm">
                     <img :src="blockArrowImage" class="w-20 h-20 rounded-md">
                 </button>
-                <button @click="handleButtonClick(startDrawingShootAction)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingShootAction}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                <button @click="handleButtonClick(startDrawingShootAction)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingShootAction}" class="bg-white border-2 border-orange_fruit text-white px-1 py-1 rounded text-sm">
                     <img :src="ShootActionImage" class="w-20 h-20 rounded-md">
                 </button>
-                <button @click="handleButtonClick(startDrawingHandoff)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingHandoff}" class="bg-green-500 text-white px-1 py-1 rounded text-sm">
+                <button @click="handleButtonClick(startDrawingHandoff)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingHandoff}" class="bg-white border-2 border-orange_fruit text-white px-1 py-1 rounded text-sm">
                     <img :src="handoffImage" class="w-20 h-20 rounded-md">
+                </button>
+            </div>
+            <div class="w-full border-t border-gray-400 my-2"></div>
+            <h2 class="text-rich_black text-lg font-bold mb-2">Other Actions</h2>
+            <div class="grid grid-cols-2 gap-4 items-center mb-2">
+                <button @click="handleButtonClick(addTextBox)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingAddingText}" class="bg-white border-2 border-orange_fruit text-rich_black px-1 py-1 rounded text-sm">
+                    <span class="text-lg text-rich_black font-bold">Add Text </span>
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Add Text</span>
                 </button>
             </div>
         </div>
     </div>
 </template>
+
+
+
 
 
 <script>
@@ -142,11 +157,12 @@ export default {
             rotatingDefensivePlayer: null,
             basketball: null,
             isDrawingArrow: false,
+            isDrawingAddingText: false,
             isDrawingDottedArrow: false,
             isDrawingWavyArrow: false,
             isDrawingBlockArrow: false,
             isDrawingShootAction: false,
-            isDrawingHandoff: false,
+            isDrawingHandoff: false, // Adicionei a flag para o handoff
             arrow: null,
             basketballImage: '/images/buttons/basketball.png',
             solidArrowImage: '/images/buttons/solid_arrow.png',
@@ -154,7 +170,7 @@ export default {
             wavyArrowImage: '/images/buttons/wavy_arrow.png',
             blockArrowImage: '/images/buttons/block_arrow.png',
             ShootActionImage: '/images/buttons/target_button.png', // Adicione a imagem da nova ação
-            handoffImage: '/images/buttons/handoff_action.png',
+            handoffImage: '/images/buttons/handoff_action.png' // Adicione a imagem para o handoff
         };
     },
     computed: {
@@ -232,11 +248,14 @@ export default {
             this.isDrawingWavyArrow = false;
             this.isDrawingBlockArrow = false;
             this.isDrawingShootAction = false;
-            this.isDrawingHandoff = false; // Adicione esta linha
+            this.isDrawingHandoff = false; // Reset handoff flag
+            this.isDrawingAddingText=false;
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            action();
+            if (typeof action === 'function') { // Adiciona esta linha para verificar se action é uma função
+                action();
+            }
         },
         toggleCourt() {
             this.isFullCourt = !this.isFullCourt;
@@ -292,7 +311,67 @@ export default {
                 canvas.renderAll();
             });
         },
-        startDrawingHandoff() {
+        startDrawingArrow() {
+            this.isDrawingArrow = true;
+            this.isDrawingDottedArrow = false;
+            this.isDrawingWavyArrow = false;
+            this.isDrawingBlockArrow = false;
+            this.isDrawingShootAction = false;
+            this.isDrawingHandoff = false; // Reset handoff flag
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+            this.isDrawingAddingText=false;
+        },
+        startDrawingDottedArrow() {
+            this.isDrawingDottedArrow = true;
+            this.isDrawingArrow = false;
+            this.isDrawingWavyArrow = false;
+            this.isDrawingBlockArrow = false;
+            this.isDrawingShootAction = false;
+            this.isDrawingHandoff = false; // Reset handoff flag
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+            this.isDrawingAddingText=false;
+        },
+        startDrawingWavyArrow() {
+            this.isDrawingWavyArrow = true;
+            this.isDrawingArrow = false;
+            this.isDrawingDottedArrow = false;
+            this.isDrawingBlockArrow = false;
+            this.isDrawingShootAction = false;
+            this.isDrawingHandoff = false; // Reset handoff flag
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+            this.isDrawingAddingText=false;
+        },
+        startDrawingBlockArrow() {
+            this.isDrawingBlockArrow = true;
+            this.isDrawingArrow = false;
+            this.isDrawingDottedArrow = false;
+            this.isDrawingWavyArrow = false;
+            this.isDrawingShootAction = false;
+            this.isDrawingHandoff = false; // Reset handoff flag
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+            this.isDrawingAddingText=false;
+        },
+        startDrawingShootAction() {
+            this.isDrawingShootAction = true;
+            this.isDrawingArrow = false;
+            this.isDrawingDottedArrow = false;
+            this.isDrawingWavyArrow = false;
+            this.isDrawingBlockArrow = false;
+            this.isDrawingHandoff = false; // Reset handoff flag
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+            this.isDrawingAddingText=false;
+        },
+        startDrawingHandoff() { // Adicionei a função para iniciar o handoff
             this.isDrawingHandoff = true;
             this.isDrawingArrow = false;
             this.isDrawingDottedArrow = false;
@@ -302,62 +381,7 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-        },
-        startDrawingDottedArrow() {
-            this.isDrawingDottedArrow = true;
-            this.isDrawingArrow = false;
-            this.isDrawingWavyArrow = false;
-            this.isDrawingBlockArrow = false;
-            this.isDrawingShootAction = false;
-            this.removingPlayer = false;
-            this.selectedPlayer = false;
-            this.selectedDefensivePlayer = false;
-        },
-        startDrawingWavyArrow() {
-            this.isDrawingWavyArrow = true;
-            this.isDrawingArrow = false;
-            this.isDrawingDottedArrow = false;
-            this.isDrawingBlockArrow = false;
-            this.isDrawingShootAction = false;
-            this.removingPlayer = false;
-            this.selectedPlayer = false;
-            this.selectedDefensivePlayer = false;
-        },
-        startDrawingBlockArrow() {
-            this.isDrawingBlockArrow = true;
-            this.isDrawingArrow = false;
-            this.isDrawingDottedArrow = false;
-            this.isDrawingWavyArrow = false;
-            this.isDrawingShootAction = false;
-            this.removingPlayer = false;
-            this.selectedPlayer = false;
-            this.selectedDefensivePlayer = false;
-        },
-        startDrawingShootAction() {
-            this.isDrawingShootAction = true;
-            this.isDrawingArrow = false;
-            this.isDrawingDottedArrow = false;
-            this.isDrawingWavyArrow = false;
-            this.isDrawingBlockArrow = false;
-            this.removingPlayer = false;
-            this.selectedPlayer = false;
-            this.selectedDefensivePlayer = false;
-        },
-        startHandoff(pointer) {
-            fabric.loadSVGFromString(handoffSVG, (objects, options) => {
-                const group = fabric.util.groupSVGElements(objects || [], options || {});
-                group.set({
-                    left: pointer.x,
-                    top: pointer.y,
-                    hasControls: true,
-                    hasBorders: true,
-                    selectable: true,
-                });
-                group.scaleToWidth(100);
-                group.on('mousedown', () => this.selectArrow(group));
-                canvas.add(group);
-                this.arrow = group;
-            });
+            this.isDrawingAddingText=false;
         },
         selectBasketball(img) {
             if (this.removingPlayer) {
@@ -401,24 +425,31 @@ export default {
                 this.startBlockArrow(pointer);
             } else if (this.isDrawingShootAction) {
                 this.startShootAction(pointer);
-            } else if (this.isDrawingHandoff) { // Adicione esta linha
-                this.startHandoff(pointer); // Adicione esta linha
+            } else if (this.isDrawingHandoff) {
+                this.startHandoff(pointer);
+            }else if(this.isDrawingAddingText){
+                this.addTextBox(pointer);
             }
         },
         handleMouseMove(options) {
-            const pointer = canvas.getPointer(options.e);
             if (this.isDrawingArrow && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
                 this.updateArrow(pointer);
             } else if (this.isDrawingDottedArrow && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
                 this.updateDottedArrow(pointer);
             } else if (this.isDrawingWavyArrow && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
                 this.updateWavyArrow(pointer);
             } else if (this.isDrawingBlockArrow && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
                 this.updateBlockArrow(pointer);
             } else if (this.isDrawingShootAction && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
                 this.updateShootAction(pointer);
-            } else if (this.isDrawingHandoff && this.arrow) { // Adicione esta linha
-                this.updateHandoff(pointer); // Adicione esta linha
+            } else if (this.isDrawingHandoff && this.arrow) {
+                const pointer = canvas.getPointer(options.e);
+                this.updateHandoff(pointer);
             }
         },
         handleMouseUp() {
@@ -432,8 +463,8 @@ export default {
                 this.finishDrawingBlockArrow();
             } else if (this.isDrawingShootAction && this.arrow) {
                 this.finishDrawingShootAction();
-            } else if (this.isDrawingHandoff && this.arrow) { // Adicione esta linha
-                this.finishDrawingHandoff(); // Adicione esta linha
+            } else if (this.isDrawingHandoff && this.arrow) {
+                this.finishDrawingHandoff();
             }
         },
         placePlayer(pointer) {
@@ -607,6 +638,22 @@ export default {
                 this.arrow = group;
             });
         },
+        startHandoff(pointer) { // Adicionei a função para desenhar o handoff
+            fabric.loadSVGFromString(handoffSVG, (objects, options) => {
+                const group = fabric.util.groupSVGElements(objects || [], options || {});
+                group.set({
+                    left: pointer.x,
+                    top: pointer.y,
+                    hasControls: true,
+                    hasBorders: true,
+                    selectable: true,
+                });
+                group.scaleToWidth(100);
+                group.on('mousedown', () => this.selectArrow(group));
+                canvas.add(group);
+                this.arrow = group;
+            });
+        },
         updateArrow(pointer) {
             this.arrow.set({
                 x2: pointer.x,
@@ -618,34 +665,6 @@ export default {
             this.arrow.set({
                 x2: pointer.x,
                 y2: pointer.y,
-            });
-            canvas.renderAll();
-        },
-        updateWavyArrow(pointer) {
-            this.arrow.set({
-                left: pointer.x,
-                top: pointer.y,
-            });
-            canvas.renderAll();
-        },
-        updateBlockArrow(pointer) {
-            this.arrow.set({
-                left: pointer.x,
-                top: pointer.y,
-            });
-            canvas.renderAll();
-        },
-        updateHandoff(pointer) {
-            this.arrow.set({
-                left: pointer.x,
-                top: pointer.y,
-            });
-            canvas.renderAll();
-        },
-        updateShootAction(pointer) {
-            this.arrow.set({
-                left: pointer.x,
-                top: pointer.y,
             });
             canvas.renderAll();
         },
@@ -674,8 +693,8 @@ export default {
             });
 
             arrowGroup.on('mousedown', () => this.selectArrow(arrowGroup));
-            canvas.remove(this.arrow);
-            canvas.add(arrowGroup);
+            canvas.remove(this.arrow); // Remove the line alone
+            canvas.add(arrowGroup); // Add the group containing the line and arrowhead
             this.arrow = null;
             this.isDrawingArrow = false;
             canvas.renderAll();
@@ -705,8 +724,8 @@ export default {
             });
 
             arrowGroup.on('mousedown', () => this.selectArrow(arrowGroup));
-            canvas.remove(this.arrow);
-            canvas.add(arrowGroup);
+            canvas.remove(this.arrow); // Remove the line alone
+            canvas.add(arrowGroup); // Add the group containing the line and arrowhead
             this.arrow = null;
             this.isDrawingDottedArrow = false;
             canvas.renderAll();
@@ -726,10 +745,31 @@ export default {
             this.isDrawingShootAction = false;
             canvas.renderAll();
         },
-        finishDrawingHandoff() {
+        finishDrawingHandoff() { // Adicionei a função para finalizar o handoff
             this.arrow = null;
             this.isDrawingHandoff = false;
             canvas.renderAll();
+        },
+        addTextBox() {
+            const text = new fabric.IText('Double-click to edit', {
+                left: canvas.getWidth() / 2,
+                top: canvas.getHeight() / 2,
+                fontFamily: 'Arial',
+                fontSize: 20,
+                fill: 'black',
+                editable: true,
+                hasControls: true,
+                hasBorders: true,
+            });
+            text.on('mousedown', () => this.selectTextBox(text));
+            canvas.add(text);
+            canvas.renderAll();
+        },
+        selectTextBox(text) {
+            if (this.removingPlayer) {
+                canvas.remove(text);
+                canvas.renderAll();
+            }
         },
         selectArrow(arrowGroup) {
             if (this.removingPlayer) {
@@ -737,12 +777,37 @@ export default {
                 canvas.renderAll();
             }
         },
+        deleteAllElements() {
+            canvas.getObjects().forEach((obj) => {
+                if (obj !== this.courtImage) {
+                    canvas.remove(obj);
+                }
+            });
+            canvas.renderAll();
+        },
+
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.updateCanvasSize);
     },
 };
 </script>
+
+<style scoped>
+.bg-gray-200 {
+    background-color: #e2e8f0;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+</style>
+
+
 
 <style scoped>
 .bg-gray-200 {
