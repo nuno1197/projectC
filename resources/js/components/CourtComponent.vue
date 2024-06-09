@@ -83,13 +83,27 @@
                     <span class="text-lg text-rich_black font-bold">Add Text </span>
                     <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Add Text</span>
                 </button>
+
+            </div>
+            <div class="w-full flex items-center justify-center my-2">
+                <button @click="previousShape" class="bg-gray-500 text-white px-1 py-1 rounded-l text-sm">
+                    &lt;
+                </button>
+                <div class="flex items-center justify-center border-2 border-gray-400 p-2">
+                    <img :src="shapeIcon" class="w-20 h-20">
+                </div>
+                <button @click="nextShape" class="bg-gray-500 text-white px-1 py-1 rounded-r text-sm">
+                    &gt;
+                </button>
+
+                <button @click="handleButtonClick(startDrawingShape)" class="bg-white border-2 border-orange_fruit text-rich_black px-1 py-1 rounded text-sm ml-4">
+                    <span class="text-lg text-rich_black font-bold">Add Shape </span>
+                    <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Add Shape</span>
+                </button>
             </div>
         </div>
     </div>
 </template>
-
-
-
 
 
 <script>
@@ -97,47 +111,13 @@ import { fabric } from 'fabric';
 
 let canvas;
 
-// Adicione o código SVG da seta ondulada aqui
-const wavyArrowSVG = `<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" version="1.0">
- <g>
-  <title>Layer 1</title>
-  <g id="svg_1" fill="#000000" transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)">
-   <path id="svg_2" d="m4355,4861c-258,-70 -482,-131 -498,-135c-38,-9 -67,-41 -67,-72c0,-21 38,-65 177,-206c141,-142 175,-181 163,-188c-8,-5 -94,-35 -190,-66c-274,-89 -374,-148 -455,-269c-67,-101 -88,-193 -105,-462c-16,-235 -41,-317 -127,-413c-33,-37 -69,-62 -136,-95c-104,-51 -188,-74 -397,-111c-185,-32 -277,-56 -367,-93c-154,-63 -290,-178 -339,-285c-51,-111 -51,-217 1,-381c14,-44 30,-107 35,-141c25,-157 -73,-305 -273,-410c-98,-51 -186,-79 -401,-125c-105,-23 -227,-52 -271,-66c-241,-75 -383,-189 -467,-372c-17,-36 -50,-150 -74,-255c-33,-142 -54,-212 -84,-272c-51,-105 -115,-166 -196,-189c-33,-10 -65,-24 -72,-33c-18,-23 -15,-56 8,-77c44,-40 195,19 275,108c91,100 131,196 185,439c48,220 92,314 183,395c102,89 236,141 529,204c224,48 310,75 421,130c160,79 266,179 324,305c22,48 28,77 31,154c3,87 0,106 -34,220c-47,158 -51,241 -14,315c46,96 167,187 318,242c78,29 109,36 342,78c102,19 221,46 265,60c187,61 313,160 379,298c45,94 62,176 76,387c18,272 44,355 139,444c63,58 129,89 336,155c88,28 182,62 210,76l49,24l162,-159c110,-109 168,-160 183,-160c35,0 59,17 70,52c25,78 271,1002 271,1019c0,28 -36,59 -67,58c-16,0 -239,-58 -498,-128z"/>
-  </g>
- </g>
-</svg>`;
+const wavyArrowSVG = '/images/buttons/svgs/wavyarrow.svg';
 
-// Adicione o código SVG da seta block aqui
-const blockArrowSVG = `<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" version="1.0" preserveAspectRatio="xMidYMid meet">
- <g>
-  <title>Layer 1</title>
-  <line stroke-width="30" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_6" y2="264" x2="357.99999" y1="266" x1="45" stroke="#000" fill="none"/>
-  <line transform="rotate(-90, 352.5, 265)" stroke-width="30" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_7" y2="264" x2="508.99999" y1="266" x1="196" stroke="#000" fill="none"/>
- </g>
-</svg>`;
+const blockArrowSVG = '/images/buttons/svgs/blockarrow.svg';
 
-// Adicione o código SVG da nova ação aqui
-const ShootActionSVG = `<svg width="524" height="512" xmlns="http://www.w3.org/2000/svg" style="vector-effect: non-scaling-stroke;" preserveAspectRatio="xMidYMid meet" version="1.0">
+const ShootActionSVG = '/images/buttons/svgs/shootaction.svg';
 
- <g>
-  <title>Layer 1</title>
-  <g id="svg_1" fill="#000000" transform="translate(0, 512) scale(0.1, -0.1)">
-   <path id="svg_2" d="m1755.57218,3448.22802c-9.25233,-6.81392 -10.86143,-15.57468 -10.86143,-60.10852l0,-39.4234l-13.47622,-1.70348c-69.19132,-8.03069 -130.73942,-32.36612 -185.64997,-72.76294c-115.85524,-85.66072 -190.47727,-227.53628 -205.56259,-390.34032l-2.41365,-27.25568l-32.78542,0c-37.00931,0 -44.65254,-2.19019 -49.68098,-14.3579c-4.02275,-9.24746 -4.02275,-15.57468 0,-24.82214c5.02844,-12.16772 12.67167,-14.3579 49.68098,-14.3579l32.78542,0l2.41365,-27.25568c22.52741,-244.81444 180.4204,-435.84758 382.16137,-462.12984l22.52741,-2.92025l0,-39.91011c0,-44.77719 1.81024,-54.02466 11.86712,-60.10852c7.64323,-4.86709 12.8728,-4.86709 20.51603,0c10.05688,6.08386 11.86712,15.33132 11.86712,60.10852l0,39.91011l22.72854,2.92025c201.53984,26.28227 360.03624,218.04547 381.7591,462.12984l2.41365,27.25568l32.98656,0c37.00931,0 44.65254,2.19019 49.68098,14.3579c4.22389,9.73417 4.02275,16.79145 -0.80455,26.28227c-5.43071,10.70759 -13.47622,12.89778 -50.48553,12.89778l-31.37746,0l-2.41365,27.49904c-12.8728,142.84898 -74.01862,273.53025 -168.151,359.43432c-65.77198,59.86516 -137.98037,93.44806 -222.65928,103.42558l-13.67735,1.70348l0,39.91011c0,45.02055 -1.81024,54.26801 -11.86712,60.35187c-8.0455,5.11044 -13.87849,4.86709 -21.52172,-0.73006zm-10.86143,-203.20085l0,-52.32118l-9.45347,-1.46013c-72.40952,-11.43765 -130.136,-45.02055 -179.61584,-104.399c-48.87643,-58.40504 -78.84593,-133.11481 -87.49484,-217.3154l-1.40796,-12.89778l-42.64116,0l-42.64116,0l1.6091,19.95505c15.68873,196.63029 134.96331,361.62451 294.26426,407.13177c17.90124,5.11044 39.02069,9.24746 59.33558,11.68101c3.82161,0.48671 7.24095,1.21677 7.64323,1.21677c0.20114,0.24335 0.40228,-22.87531 0.40228,-51.59111zm89.50622,44.53384c77.43796,-16.54809 149.44521,-62.05535 205.16032,-129.70785c63.76061,-77.63003 102.7813,-176.67523 111.22907,-283.26442l1.6091,-19.95505l-42.64116,0l-42.64116,0l-1.40796,12.89778c-11.06257,108.77938 -58.12876,201.74073 -132.54965,262.33595c-39.42296,32.12277 -82.4664,51.10441 -134.35989,59.37845l-9.6546,1.46013l0,51.83447l0,51.59111l16.49328,-1.94683c9.05119,-0.97342 21.92399,-3.16361 28.76267,-4.62373zm-89.50622,-189.81637c0,-44.53384 1.81024,-52.80789 13.07394,-59.1351c3.62048,-2.19019 7.64323,-3.89367 9.05119,-3.89367c1.40796,0 5.43071,1.70348 9.05119,3.89367c11.2637,6.32721 13.07394,14.60126 13.07394,59.1351l0,39.18004l6.63754,0c17.90124,-0.24335 60.54241,-15.08797 84.88005,-29.68923c48.67529,-29.44587 92.92555,-82.98382 117.2632,-141.87557c12.06825,-29.44587 24.33765,-81.03699 24.53878,-102.69552l0,-8.03069l-29.9695,0c-35.19907,0 -40.83093,-0.97342 -47.26733,-9.00411c-6.83868,-8.27405 -8.24664,-18.00822 -4.22389,-28.47245c5.43071,-13.8712 12.06825,-16.06138 49.07757,-16.06138l32.38315,0l0,-7.78734c-0.20114,-21.90189 -12.47053,-73.493 -24.53878,-102.93888c-24.13651,-58.16168 -67.9845,-111.69963 -115.25182,-140.41544c-25.34333,-15.57468 -58.32989,-27.49904 -86.89143,-31.87942l-6.63754,-0.97342l0,40.15346c0,43.56042 -1.81024,52.80789 -11.06257,58.89174c-6.4364,4.13702 -15.68873,4.13702 -22.12513,0c-9.25233,-6.08386 -11.06257,-15.33132 -11.06257,-58.89174l0,-40.15346l-6.4364,0.97342c-28.76267,4.38038 -61.74923,16.30474 -87.09257,31.87942c-47.26733,28.71581 -91.11532,82.25376 -115.25182,140.41544c-12.06825,29.44587 -24.33765,81.03699 -24.53878,102.93888l0,7.78734l32.38315,0c36.80817,0 43.64685,2.19019 48.87643,15.81803c4.02275,9.97753 4.02275,11.92436 0,21.90189c-5.22958,13.62784 -12.06825,15.81803 -48.87643,15.81803l-32.38315,0l0,8.03069c0.20114,21.65853 12.47053,73.24965 24.53878,102.69552c24.33765,58.89174 68.58791,112.42969 117.2632,141.87557c24.73992,14.84461 65.16857,28.95916 84.0755,29.44587l7.44209,0.24335l0,-39.18004zm-276.56415,-309.30333c8.64892,-84.44395 38.61841,-159.15372 87.49484,-217.55876c49.07757,-58.89174 109.2177,-94.17812 178.61016,-104.399l10.45915,-1.70348l0,-52.07782l0,-52.07782l-7.44209,1.21677c-4.22389,0.48671 -15.28645,2.19019 -24.73992,3.65031c-79.85161,12.41107 -158.69754,60.35187 -218.43539,132.38475c-63.35833,76.89996 -102.58016,176.67523 -111.02794,283.26442l-1.6091,19.95505l42.64116,0l42.64116,0l1.40796,-12.65442zm682.45976,-7.30063c-8.44778,-106.58919 -47.46847,-205.6344 -111.22907,-283.26442c-59.13444,-71.78952 -138.38264,-119.97368 -218.23426,-132.38475c-9.45347,-1.46013 -20.51603,-3.16361 -24.53878,-3.65031l-7.64323,-1.21677l0,52.07782l0,52.07782l10.66029,1.70348c69.39246,10.46424 129.53259,45.50726 178.61016,104.64236c49.07757,58.89174 78.64479,132.87146 87.2937,217.3154l1.40796,12.65442l42.64116,0l42.64116,0l-1.6091,-19.95505z"/>
-   <path id="svg_3" d="m1751.34829,2905.5479c-11.86712,-3.65031 -27.75698,-16.30474 -35.19907,-28.2291c-24.94106,-39.66675 -13.67735,-95.8816 23.5331,-118.02684c8.24664,-4.86709 13.07394,-6.08386 27.15357,-6.08386c20.11376,0 32.18201,5.8405 45.25595,21.90189c38.61841,46.72403 13.67735,127.51766 -40.62979,131.41133c-7.44209,0.48671 -16.49328,0.24335 -20.11376,-0.97342zm26.7513,-54.26801c8.85005,-5.11044 12.26939,-22.63195 6.83868,-34.79967c-1.40796,-3.16361 -5.63185,-7.54398 -9.45347,-9.73417c-21.11944,-12.16772 -40.02638,21.17183 -23.33196,41.12688c7.24095,8.76076 15.28645,9.73417 25.94675,3.40696z"/>
-  </g>
-  <line transform="rotate(-90, 365, 229)" stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_4" y2="89" x2="365" y1="369" x1="365" stroke-width="7" stroke="#000" fill="none"/>
- </g>
-</svg>`;
-
-const handoffSVG = `<svg width="524" height="512" xmlns="http://www.w3.org/2000/svg" style="vector-effect: non-scaling-stroke;" preserveAspectRatio="xMidYMid meet" version="1.0">
-
- <g>
-  <title>Layer 1</title>
-  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_5" y2="356" x2="186" y1="164" x1="187" stroke-width="7" stroke="#000" fill="none"/>
-  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_6" y2="258" x2="374" y1="260" x1="117" stroke-width="7" stroke="#000" fill="none"/>
-  <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_9" y2="358" x2="311" y1="166" x1="312" stroke-width="7" stroke="#000" fill="none"/>
- </g>
-</svg>`;
+const handoffSVG = '/images/buttons/svgs/handoffaction.svg';
 
 export default {
     data() {
@@ -157,20 +137,24 @@ export default {
             rotatingDefensivePlayer: null,
             basketball: null,
             isDrawingArrow: false,
-            isDrawingAddingText: false,
             isDrawingDottedArrow: false,
             isDrawingWavyArrow: false,
             isDrawingBlockArrow: false,
             isDrawingShootAction: false,
-            isDrawingHandoff: false, // Adicionei a flag para o handoff
+            isDrawingHandoff: false,
+            isDrawingAddingText: false,
             arrow: null,
             basketballImage: '/images/buttons/basketball.png',
             solidArrowImage: '/images/buttons/solid_arrow.png',
             dottedArrowImage: '/images/buttons/dotted_arrow.png',
             wavyArrowImage: '/images/buttons/wavy_arrow.png',
             blockArrowImage: '/images/buttons/block_arrow.png',
-            ShootActionImage: '/images/buttons/target_button.png', // Adicione a imagem da nova ação
-            handoffImage: '/images/buttons/handoff_action.png' // Adicione a imagem para o handoff
+            ShootActionImage: '/images/buttons/target_button.png',
+            handoffImage: '/images/buttons/handoff_action.png',
+            // Adicione estas variáveis
+            shapes: ['circle', 'rectangle', 'triangle'],
+            currentShapeIndex: 0,
+            isDrawingShape: false
         };
     },
     computed: {
@@ -180,9 +164,18 @@ export default {
         buttonLabel() {
             return this.isFullCourt ? 'Toggle Half-Court' : 'Toggle Full-Court';
         },
-        currentPlayers() {
-            return this.isFullCourt ? this.fullCourtPlayers : this.halfCourtPlayers;
-        },
+        shapeIcon() {
+            switch (this.shapes[this.currentShapeIndex]) {
+                case 'circle':
+                    return '/images/buttons/circle.png'; // Atualize com o caminho correto da imagem
+                case 'rectangle':
+                    return '/images/buttons/rectangle.png'; // Atualize com o caminho correto da imagem
+                case 'triangle':
+                    return '/images/buttons/triangle.png'; // Atualize com o caminho correto da imagem
+                default:
+                    return '';
+            }
+        }
     },
     watch: {
         courtImageUrl: 'loadCourtImage',
@@ -203,12 +196,14 @@ export default {
         },
         updateCanvasSize() {
             const canvasContainer = this.$refs.canvasContainer;
-            const width = canvasContainer.clientWidth;
-            const height = canvasContainer.clientHeight;
-            canvas.setWidth(width);
-            canvas.setHeight(height);
-            if (this.courtImage) {
-                this.adjustCourtImageSize();
+            if (canvasContainer) {
+                const width = canvasContainer.clientWidth;
+                const height = canvasContainer.clientHeight;
+                canvas.setWidth(width);
+                canvas.setHeight(height);
+                if (this.courtImage) {
+                    this.adjustCourtImageSize();
+                }
             }
         },
         loadCourtImage() {
@@ -248,12 +243,14 @@ export default {
             this.isDrawingWavyArrow = false;
             this.isDrawingBlockArrow = false;
             this.isDrawingShootAction = false;
-            this.isDrawingHandoff = false; // Reset handoff flag
-            this.isDrawingAddingText=false;
+            this.isDrawingHandoff = false;
+            this.isDrawingAddingText = false;
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            if (typeof action === 'function') { // Adiciona esta linha para verificar se action é uma função
+            this.isDrawingShape = false; // Adicione esta linha
+
+            if (typeof action === 'function') {
                 action();
             }
         },
@@ -321,7 +318,7 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            this.isDrawingAddingText=false;
+            this.isDrawingAddingText = false;
         },
         startDrawingDottedArrow() {
             this.isDrawingDottedArrow = true;
@@ -333,7 +330,7 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            this.isDrawingAddingText=false;
+            this.isDrawingAddingText = false;
         },
         startDrawingWavyArrow() {
             this.isDrawingWavyArrow = true;
@@ -345,7 +342,7 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            this.isDrawingAddingText=false;
+            this.isDrawingAddingText = false;
         },
         startDrawingBlockArrow() {
             this.isDrawingBlockArrow = true;
@@ -357,7 +354,7 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            this.isDrawingAddingText=false;
+            this.isDrawingAddingText = false;
         },
         startDrawingShootAction() {
             this.isDrawingShootAction = true;
@@ -369,7 +366,7 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            this.isDrawingAddingText=false;
+            this.isDrawingAddingText = false;
         },
         startDrawingHandoff() { // Adicionei a função para iniciar o handoff
             this.isDrawingHandoff = true;
@@ -381,8 +378,22 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            this.isDrawingAddingText=false;
+            this.isDrawingAddingText = false;
         },
+        startDrawingShape() {
+            this.isDrawingShape = true;
+            this.isDrawingArrow = false;
+            this.isDrawingDottedArrow = false;
+            this.isDrawingWavyArrow = false;
+            this.isDrawingBlockArrow = false;
+            this.isDrawingShootAction = false;
+            this.isDrawingHandoff = false;
+            this.removingPlayer = false;
+            this.selectedPlayer = false;
+            this.selectedDefensivePlayer = false;
+            this.isDrawingAddingText = false;
+        },
+
         selectBasketball(img) {
             if (this.removingPlayer) {
                 canvas.remove(img);
@@ -427,8 +438,10 @@ export default {
                 this.startShootAction(pointer);
             } else if (this.isDrawingHandoff) {
                 this.startHandoff(pointer);
-            }else if(this.isDrawingAddingText){
+            } else if (this.isDrawingAddingText) {
                 this.addTextBox(pointer);
+            } else if (this.isDrawingShape) { // Adicione esta verificação
+                this.addShape(pointer);
             }
         },
         handleMouseMove(options) {
@@ -668,6 +681,34 @@ export default {
             });
             canvas.renderAll();
         },
+        updateWavyArrow(pointer) {
+            this.arrow.set({
+                left: pointer.x,
+                top: pointer.y,
+            });
+            canvas.renderAll();
+        },
+        updateBlockArrow(pointer) {
+            this.arrow.set({
+                left: pointer.x,
+                top: pointer.y,
+            });
+            canvas.renderAll();
+        },
+        updateShootAction(pointer) {
+            this.arrow.set({
+                left: pointer.x,
+                top: pointer.y,
+            });
+            canvas.renderAll();
+        },
+        updateHandoff(pointer) {
+            this.arrow.set({
+                left: pointer.x,
+                top: pointer.y,
+            });
+            canvas.renderAll();
+        },
         finishDrawingArrow() {
             const pointer = {
                 x: this.arrow.x2,
@@ -785,7 +826,75 @@ export default {
             });
             canvas.renderAll();
         },
-
+        previousShape() {
+            if (this.currentShapeIndex > 0) {
+                this.currentShapeIndex--;
+            } else {
+                this.currentShapeIndex = this.shapes.length - 1;
+            }
+        },
+        nextShape() {
+            if (this.currentShapeIndex < this.shapes.length - 1) {
+                this.currentShapeIndex++;
+            } else {
+                this.currentShapeIndex = 0;
+            }
+        },
+        addShape(pointer) {
+            const shapeType = this.shapes[this.currentShapeIndex];
+            let shape;
+            switch (shapeType) {
+                case 'circle':
+                    shape = new fabric.Circle({
+                        radius: 25,
+                        fill: 'yellow',
+                        left: pointer.x,
+                        top: pointer.y,
+                        originX: 'center',
+                        originY: 'center',
+                        stroke: 'black',
+                        strokeWidth: 2,
+                    });
+                    break;
+                case 'rectangle':
+                    shape = new fabric.Rect({
+                        width: 50,
+                        height: 50,
+                        fill: 'yellow',
+                        left: pointer.x,
+                        top: pointer.y,
+                        originX: 'center',
+                        originY: 'center',
+                        stroke: 'black',
+                        strokeWidth: 2,
+                    });
+                    break;
+                case 'triangle':
+                    shape = new fabric.Triangle({
+                        width: 50,
+                        height: 50,
+                        fill: 'yellow',
+                        left: pointer.x,
+                        top: pointer.y,
+                        originX: 'center',
+                        originY: 'center',
+                        stroke: 'black',
+                        strokeWidth: 2,
+                    });
+                    break;
+            }
+            shape.on('mousedown', () => this.selectShape(shape));
+            canvas.add(shape);
+            shape.moveTo(1); // Mover a forma para trás de todos os elementos, exceto o court
+            canvas.renderAll();
+            this.isDrawingShape = false;
+        },
+        selectShape(shape) {
+            if (this.removingPlayer) {
+                canvas.remove(shape);
+                canvas.renderAll();
+            }
+        },
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.updateCanvasSize);
@@ -793,21 +902,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.bg-gray-200 {
-    background-color: #e2e8f0;
-}
-
-.h-full {
-    height: 100%;
-}
-
-.overflow-y-auto {
-    overflow-y: auto;
-}
-</style>
-
-
 
 <style scoped>
 .bg-gray-200 {
@@ -820,5 +914,30 @@ export default {
 
 .overflow-y-auto {
     overflow-y: auto;
+}
+
+.button-toggle-shape i {
+    font-size: 1.25rem;
+}
+
+
+.bg-gray-200 {
+    background-color: #e2e8f0;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
 }
 </style>
