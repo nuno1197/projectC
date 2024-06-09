@@ -79,11 +79,13 @@
             <div class="w-full border-t border-gray-400 my-2"></div>
             <h2 class="text-rich_black text-lg font-bold mb-2">Other Actions</h2>
             <div class="grid grid-cols-2 gap-4 items-center mb-2">
-                <button @click="handleButtonClick(addTextBox)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingAddingText}" class="bg-white border-2 border-orange_fruit text-rich_black px-1 py-1 rounded text-sm">
+                <button @click="handleButtonClick(addTextBox)" :class="{'border-2 border-pacific_cyan shadow-md': isDrawingAddingText}" class="bg-white border-2 border-orange_fruit text-rich_black px-1 py-1 rounded text-sm w-full h-20">
                     <span class="text-lg text-rich_black font-bold">Add Text </span>
                     <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Add Text</span>
                 </button>
-
+                <button @click="handleButtonClick(addCone)" class="bg-white items-center border-2 border-orange_fruit text-rich_black px-1 py-1 rounded text-sm w-full h-20">
+                    <img :src="trafficConeImage" class="ml-4 w-10 h-10 ">
+                </button>
             </div>
             <div class="w-full flex items-center justify-center my-2">
                 <button @click="previousShape" class="bg-gray-500 text-white px-1 py-1 rounded-l text-sm">
@@ -110,14 +112,6 @@
 import { fabric } from 'fabric';
 
 let canvas;
-
-const wavyArrowSVG = '/images/buttons/svgs/wavyarrow.svg';
-
-const blockArrowSVG = '/images/buttons/svgs/blockarrow.svg';
-
-const ShootActionSVG = '/images/buttons/svgs/shootaction.svg';
-
-const handoffSVG = '/images/buttons/svgs/handoffaction.svg';
 
 export default {
     data() {
@@ -151,7 +145,7 @@ export default {
             blockArrowImage: '/images/buttons/block_arrow.png',
             ShootActionImage: '/images/buttons/target_button.png',
             handoffImage: '/images/buttons/handoff_action.png',
-            // Adicione estas variáveis
+            trafficConeImage: '/images/buttons/traffic-cone.png',
             shapes: ['circle', 'rectangle', 'triangle'],
             currentShapeIndex: 0,
             isDrawingShape: false
@@ -248,7 +242,7 @@ export default {
             this.removingPlayer = false;
             this.selectedPlayer = false;
             this.selectedDefensivePlayer = false;
-            this.isDrawingShape = false; // Adicione esta linha
+            this.isDrawingShape = false;
 
             if (typeof action === 'function') {
                 action();
@@ -305,6 +299,23 @@ export default {
                 img.on('mousedown', () => this.selectBasketball(img));
                 canvas.add(img);
                 this.basketball = img;
+                canvas.renderAll();
+            });
+        },
+        addCone() {
+            fabric.Image.fromURL(this.trafficConeImage, (img) => {
+                img.scaleToWidth(30);
+                img.set({
+                    left: canvas.getWidth() / 2,
+                    top: canvas.getHeight() / 2,
+                    originX: 'center',
+                    originY: 'center',
+                    hasControls: true,
+                    hasBorders: true,
+                });
+                img.on('mousedown', () => this.selectCone(img));
+                canvas.add(img);
+                this.cone = img;
                 canvas.renderAll();
             });
         },
@@ -393,11 +404,32 @@ export default {
             this.selectedDefensivePlayer = false;
             this.isDrawingAddingText = false;
         },
-
         selectBasketball(img) {
             if (this.removingPlayer) {
                 canvas.remove(img);
                 this.basketball = null;
+                canvas.renderAll();
+            } else {
+                this.draggingPlayer = img;
+                if (this.rotatingPlayer) {
+                    this.rotatingPlayer.set('shadow', null);
+                }
+                if (this.rotatingDefensivePlayer) {
+                    this.rotatingDefensivePlayer.set('shadow', null);
+                }
+                img.set('shadow', new fabric.Shadow({
+                    color: 'rgba(0,0,0,0.5)',
+                    blur: 10,
+                    offsetX: 5,
+                    offsetY: 5,
+                }));
+                canvas.renderAll();
+            }
+        },
+        selectCone(img) {
+            if (this.removingPlayer) {
+                canvas.remove(img);
+                this.cone = null;
                 canvas.renderAll();
             } else {
                 this.draggingPlayer = img;
@@ -552,7 +584,6 @@ export default {
                 });
             }
         },
-
         selectPlayer(group) {
             if (this.removingPlayer) {
                 canvas.remove(group);
@@ -604,7 +635,7 @@ export default {
             canvas.add(this.arrow);
         },
         startWavyArrow(pointer) {
-            fabric.loadSVGFromString(wavyArrowSVG, (objects, options) => {
+            fabric.loadSVGFromURL(this.wavyArrowImage, (objects, options) => {
                 const group = fabric.util.groupSVGElements(objects || [], options || {});
                 group.set({
                     left: pointer.x,
@@ -620,7 +651,7 @@ export default {
             });
         },
         startBlockArrow(pointer) {
-            fabric.loadSVGFromString(blockArrowSVG, (objects, options) => {
+            fabric.loadSVGFromURL(this.blockArrowImage, (objects, options) => {
                 const group = fabric.util.groupSVGElements(objects || [], options || {});
                 group.set({
                     left: pointer.x,
@@ -636,7 +667,7 @@ export default {
             });
         },
         startShootAction(pointer) {
-            fabric.loadSVGFromString(ShootActionSVG, (objects, options) => {
+            fabric.loadSVGFromURL(this.ShootActionImage, (objects, options) => {
                 const group = fabric.util.groupSVGElements(objects || [], options || {});
                 group.set({
                     left: pointer.x,
@@ -652,7 +683,7 @@ export default {
             });
         },
         startHandoff(pointer) { // Adicionei a função para desenhar o handoff
-            fabric.loadSVGFromString(handoffSVG, (objects, options) => {
+            fabric.loadSVGFromURL(this.handoffImage, (objects, options) => {
                 const group = fabric.util.groupSVGElements(objects || [], options || {});
                 group.set({
                     left: pointer.x,
@@ -847,7 +878,7 @@ export default {
                 case 'circle':
                     shape = new fabric.Circle({
                         radius: 25,
-                        fill: 'yellow',
+                        fill: 'rgba(255, 255, 0, 0.5)', // cor amarela transparente
                         left: pointer.x,
                         top: pointer.y,
                         originX: 'center',
@@ -860,7 +891,7 @@ export default {
                     shape = new fabric.Rect({
                         width: 50,
                         height: 50,
-                        fill: 'yellow',
+                        fill: 'rgba(255, 255, 0, 0.5)', // cor amarela transparente
                         left: pointer.x,
                         top: pointer.y,
                         originX: 'center',
@@ -873,7 +904,7 @@ export default {
                     shape = new fabric.Triangle({
                         width: 50,
                         height: 50,
-                        fill: 'yellow',
+                        fill: 'rgba(255, 255, 0, 0.5)', // cor amarela transparente
                         left: pointer.x,
                         top: pointer.y,
                         originX: 'center',
@@ -902,25 +933,7 @@ export default {
 };
 </script>
 
-
 <style scoped>
-.bg-gray-200 {
-    background-color: #e2e8f0;
-}
-
-.h-full {
-    height: 100%;
-}
-
-.overflow-y-auto {
-    overflow-y: auto;
-}
-
-.button-toggle-shape i {
-    font-size: 1.25rem;
-}
-
-
 .bg-gray-200 {
     background-color: #e2e8f0;
 }
