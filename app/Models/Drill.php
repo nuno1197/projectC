@@ -15,4 +15,10 @@ class Drill extends Model
     {
         return $this->belongsToMany(Practice::class, 'drill_practice');
     }
+
+    public function canvasStates()
+    {
+        return $this->hasMany(CanvasState::class);
+    }
+
 }

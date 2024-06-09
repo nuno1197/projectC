@@ -41,7 +41,34 @@ class DrillController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
+        $public=0;
+
+        if(request('public'))
+        {
+            $public=1;
+        }
+        request()->validate([
+            'drill_name' => ['required', 'min:3'],
+            'objective' => ['required'],
+            'rules' => ['required'],
+        ]);
+
+
+
+        $drill = Drill::create([
+            'drill_name' => request('drill_name'),
+            'objective' => request('objective'),
+            'rules'=> request('rules'),
+            'public'=> $public,
+            'number_players'=> request('number_players'),
+            'material'=> request('material'),
+            'age_squad'=> request('age_squad'),
+            'user_id' => Auth::user()->id
+        ]);
+
+
+        return redirect(route('drill.index'))->withSuccess('Drill created successfully!');
     }
 
     /**
@@ -57,7 +84,7 @@ class DrillController extends Controller
      */
     public function edit(Drill $drill)
     {
-        //
+        return view('drill.edit', ['drill' => $drill]);
     }
 
     /**
@@ -65,7 +92,33 @@ class DrillController extends Controller
      */
     public function update(Request $request, Drill $drill)
     {
-        //
+        $public=0;
+
+        if(request('public'))
+        {
+            $public=1;
+        }
+        request()->validate([
+            'drill_name' => ['required', 'min:3'],
+            'objective' => ['required'],
+            'rules' => ['required'],
+        ]);
+
+
+
+        $drill->update([
+            'drill_name' => request('drill_name'),
+            'objective' => request('objective'),
+            'rules'=> request('rules'),
+            'public'=> $public,
+            'number_players'=> request('number_players'),
+            'material'=> request('material'),
+            'age_squad'=> request('age_squad'),
+            'user_id' => Auth::user()->id
+        ]);
+
+
+        return redirect(route('drill.index'))->withSuccess('Drill updated successfully!');
     }
 
     /**

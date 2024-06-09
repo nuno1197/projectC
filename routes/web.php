@@ -89,6 +89,9 @@ Route::prefix('drill')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/menu', [DrillController::class, 'drillMenu'])->name('drill.menu')->middleware(['auth', 'verified']);
     Route::get('/mydrills', [DrillController::class, 'index'])->name('drill.index')->middleware(['auth', 'verified']);
     Route::get('/mydrills/create', [DrillController::class, 'create'])->name('drill.create')->middleware(['auth', 'verified']);
+    Route::post('/', [DrillController::class, 'store'])->name('drill.store');
+    Route::get('/mydrills/{drill}/edit', [DrillController::class, 'edit'])->name('drill.edit')->middleware(['auth', 'verified']);
+    Route::patch('/{drill}', [DrillController::class, 'update'])->name('drill.patch')->withoutMiddleware(['verified']);
 });
 
 Route::get('/aux', function (){

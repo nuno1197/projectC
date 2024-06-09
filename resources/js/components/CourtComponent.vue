@@ -103,6 +103,18 @@
                     <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 w-max bg-black text-white text-xs font-bold py-1 px-2 rounded hidden group-hover:block">Add Shape</span>
                 </button>
             </div>
+            <div class="w-full border-t border-gray-400 my-2"></div>
+            <h2 class="text-rich_black text-lg font-bold mb-2">Save Actions</h2>
+            <div class="w-full flex items-center justify-center my-2">
+                <!-- Botão para salvar o estado do canvas -->
+                <button @click="saveCanvas" class="bg-green-500 text-white px-2 py-1 rounded">
+                    Save
+                </button>
+                <!-- Botão para carregar o estado do canvas -->
+                <button @click="loadCanvas" class="bg-blue-500 text-white px-2 py-1 rounded ml-2">
+                    Load
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -930,6 +942,32 @@ export default {
     beforeDestroy() {
         window.removeEventListener('resize', this.updateCanvasSize);
     },
+    saveCanvas() {
+        const canvasState = JSON.stringify(canvas.toJSON());
+        const drillId = this.drillId; // Supondo que você tenha o drillId disponível no componente
+        axios.post(`/api/drills/${drillId}/save-canvas`, { canvasState })
+            .then(response => {
+                console.log('Canvas saved successfully');
+            })
+            .catch(error => {
+                console.error('Error saving canvas:', error);
+            });
+    },
+    loadCanvas() {
+        const drillId = this.drillId; // Supondo que você tenha o drillId disponível no componente
+        axios.get(`/api/drills/${drillId}/load-canvas`)
+            .then(response => {
+                const canvasStates = response.data.canvasStates;
+                canvasStates.forEach(state => {
+                    canvas.loadFromJSON(state.state, () => {
+                        canvas.renderAll();
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Error loading canvas:', error);
+            });
+    }
 };
 </script>
 

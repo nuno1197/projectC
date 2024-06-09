@@ -26,9 +26,6 @@
                 <th @click="sort('number_players')" class="px-4 py-2 cursor-pointer text-left">
                     Minimum Players <span v-if="sortKey === 'number_players'">{{ sortOrders.number_players > 0 ? '▲' : '▼' }}</span>
                 </th>
-                <th @click="sort('material')" class="px-4 py-2 cursor-pointer text-left">
-                    Material <span v-if="sortKey === 'material'">{{ sortOrders.material > 0 ? '▲' : '▼' }}</span>
-                </th>
                 <th @click="sort('age_squad')" class="px-4 py-2 cursor-pointer text-left">
                     Age Squad <span v-if="sortKey === 'age_squad'">{{ sortOrders.age_squad > 0 ? '▲' : '▼' }}</span>
                 </th>
@@ -51,10 +48,9 @@
                     <i :class="drill.public ? 'fa fa-check text-green-500' : 'fa fa-times text-red-500'"></i>
                 </td>
                 <td class="px-4 py-4">{{ drill.number_players }}</td>
-                <td class="px-4 py-4">{{ drill.material }}</td>
                 <td class="px-4 py-4">{{ drill.age_squad }}</td>
                 <td class="px-4 py-4 flex space-x-2">
-                    <a :href="'/drills/edit/' + drill.id" class="px-3 py-1 border rounded bg-pacific_cyan text-rich_black hover:bg-blue-800">
+                    <a :href="'/drill/mydrills/' + drill.id + '/edit'" class="px-3 py-1 border rounded bg-pacific_cyan text-rich_black hover:bg-blue-800">
                         Edit
                     </a>
                     <button @click="deleteDrill(drill.id)" class="px-3 py-1 border rounded bg-red-500 text-white hover:bg-red-600">
@@ -98,7 +94,6 @@ export default {
                 rules: 1,
                 public: 1,
                 number_players: 1,
-                material: 1,
                 age_squad: 1
             },
             paginationLinks: this.initialLinks.trim() // Trim whitespace from the links
@@ -113,7 +108,6 @@ export default {
                     (typeof drill.objective === 'string' && drill.objective.toLowerCase().includes(searchLower)) ||
                     (typeof drill.rules === 'string' && drill.rules.toLowerCase().includes(searchLower)) ||
                     (typeof drill.number_players === 'number' && drill.number_players.toString().includes(searchLower)) ||
-                    (typeof drill.material === 'string' && drill.material.toLowerCase().includes(searchLower)) ||
                     (typeof drill.age_squad === 'string' && drill.age_squad.toLowerCase().includes(searchLower))
                 );
                 return matchesSearch;
