@@ -4,7 +4,6 @@ cProject (BallBlueprint)
 
 \[![N|Solid](https://picperf.io/https://laravelnews.s3.amazonaws.com/images/laravel-featured.png)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 Features
 --------
@@ -37,7 +36,7 @@ Some Pictures
 Tech
 ----
 
-Dillinger uses a number of open source projects to work properly:
+BallBlueprint uses this technologies to work properly:
 
 *   [Laravel](https://laravel.com/) - PHP Framework
 *   [Vite](https://vitejs.dev/) - Frontend Tooling
