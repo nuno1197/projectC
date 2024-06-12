@@ -1,45 +1,55 @@
-<h1 align="center" id="title">CProject (Ball Blueprint)</h1>
 
-<p id="description">In this tiny personal project I chose to create a web application that can manage a team using PHP and Vue.JS (using the Laravel framework): Manage game plans (create read update delete and obtain the plan's PDF) manage training sessions (create read update delete and obtain the training plan PDF) manage team members (create read update and delete) manage Drills (Drag &amp; Drop Create Read Update Delete) among additional attributes.</p>
+cProject (BallBlueprint)
+========================
 
-<h2>Project Screenshots:</h2>
+\[![N|Solid](https://picperf.io/https://laravelnews.s3.amazonaws.com/images/laravel-featured.png)
 
-<img src="https://imgur.com/OENyiKr" alt="LOG IN" width="500" height="500/">
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-<img src="https://imgur.com/qwwRxWq" alt="project-screenshot" width="500" height="500/">
+Features
+--------
 
-<img src="https://imgur.com/Uf2105N" alt="project-screenshot" width="500" height="500/">
+In this tiny personal project, I chose to create a web application that can manage a team using PHP and Vue.JS (using the Laravel framework):
 
-<img src="https://imgur.com/mQ03e03" alt="project-screenshot" width="500" height="500/">
+*   Manage game plans (create, read, update, delete, and obtain the plan’s PDF)
+*   Manage training sessions (create, read, update, delete, and obtain the training plan PDF)
+*   Manage team members (create, read, update, and delete)
+*   Manage Drills (Drag & Drop, Create, Read, Update, Delete).
+*   See Full Month, Week , Day Calendar
 
-<img src="https://imgur.com/vU70pTT" alt="project-screenshot" width="500" height="500/">
+Some Pictures
+-------------
 
-<img src="https://imgur.com/sxm5D1N" alt="project-screenshot" width="500" height="500/">
+*   [Landing Page](https://imgur.com/OENyiKr)
+*   [Log in](https://imgur.com/qwwRxWq)
+*   [Seasons Menu](https://imgur.com/Uf2105N)
+*   [Roster Menu](https://imgur.com/mQ03e03)
+*   [Planning Menu](https://imgur.com/vU70pTT)
+*   [Player’s Menu](https://imgur.com/TChOS6v)
+*   [Add Player](https://imgur.com/yAN8Krg)
+*   [Player Profile](https://imgur.com/sxm5D1N)
+*   [Game Index](https://imgur.com/GGoUJuP)
+*   [Plan Game](https://imgur.com/2TopmrZ)
+*   [Practice Index](https://imgur.com/mxiSw6T)
+*   [Create Drill Sketch](https://imgur.com/vdbg3UU)
+*   [Calendar View](https://imgur.com/Eu1sucQ)
 
-<img src="https://imgur.com/undefined" alt="project-screenshot" width="500" height="500/">
+Tech
+----
 
-<img src="https://imgur.com/GGoUJuP" alt="project-screenshot" width="500" height="500/">
+Dillinger uses a number of open source projects to work properly:
 
-<img src="https://imgur.com/Eu1sucQ" alt="project-screenshot" width="500" height="500/">
+*   [Laravel](https://laravel.com/) - PHP Framework
+*   [Vite](https://vitejs.dev/) - Frontend Tooling
+*   [TailwindCSS](https://tailwindcss.com/) - utility-first CSS framework
+*   [Vue.js](https://vuejs.org/) - JavaScript Framework
+*   [node.js](http://nodejs.org) - evented I/O for the backend
+*   [AlpineJS](https://alpinejs.dev/) - Another JavaScript framework
+*   [MySql](https://www.mysql.com/) - DataBase
 
-<img src="https://imgur.com/yAN8Krg" alt="project-screenshot" width="500" height="500/">
+License
+-------
 
-<img src="https://imgur.com/Eu1sucQ" alt="project-screenshot" width="500" height="500/">
+MIT
 
-<img src="https://imgur.com/kkjIN7k" alt="project-screenshot" width="500" height="500/">
-
-  
-  
-<h2>💻 Built with</h2>
-
-Technologies used in the project:
-
-*   PHP (LARAVEL)
-*   VUE.JS
-*   TAILWINDCSS
-*   ALPINEJS
-*   MYSQL
-
-<h2>🛡️ License:</h2>
-
-This project is licensed under the
+**Free Software, Hell Yeah!**
